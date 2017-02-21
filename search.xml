@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>%2F2017%2F02%2F17%2Fhello-world%2F</url>
+      <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Scrapy五大组件介绍]]></title>
+      <url>%2F2016%2F02%2F21%2Fscrapy-five-module%2F</url>
+      <content type="text"><![CDATA[Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。 调度器调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功）。用户可以跟据自己的需求定制调度器。 下载器下载器，是所有组件中负担最大的，它用于高速地下载网络上的资源。Scrapy的下载器代码不会太复杂，但效率高，主要的原因是Scrapy下载器是建立在twisted这个高效的异步模型上的(其实整个框架都在建立在这个模型上的)。 爬虫爬虫，是用户最关心的部份。用户定制自己的爬虫，用于从特定的网页中提取自己需要的信息，即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy继续抓取下一个页面。 实体管道实体管道，用于处理爬虫提取的实体。主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。 Scrapy引擎Scrapy引擎是整个框架的核心。它用来控制调试器、下载器、爬虫。实际上，引擎相当于计算机的CPU,它控制着整个流程。 Scrapy运行流程 首先，引擎从调度器中取出一个链接(URL)用于接下来的抓取 引擎把URL封装成一个请求(Request)传给下载器，下载器把资源下载下来，并封装成应答包(Response) 然后，爬虫解析Response 若是解析出实体（Item）,则交给实体管道进行进一步的处理。 若是解析出的是链接（URL）,则把URL交给Scheduler等待抓取]]></content>
+    </entry>
+
+    
+  
+  
+</search>
