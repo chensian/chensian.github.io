@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Spring," />
 
 
 
@@ -102,15 +102,22 @@
 
 
 
-<meta name="description" content="你陪着我的时候，我从没有羡慕任何人。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chesian">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+<meta name="description" content="在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。
+Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked如果遇到checked意外就不回滚。如何改变默认规则：
+1 让checked例外也回滚：在整个方法前加上@Transactional(rollbac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring @Transactional配置">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/spring-transactional/index.html">
 <meta property="og:site_name" content="chesian">
-<meta property="og:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta property="og:description" content="在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。
+Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked如果遇到checked意外就不回滚。如何改变默认规则：
+1 让checked例外也回滚：在整个方法前加上@Transactional(rollbac">
+<meta property="og:updated_time" content="2017-02-22T14:56:56.865Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chesian">
-<meta name="twitter:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta name="twitter:title" content="Spring @Transactional配置">
+<meta name="twitter:description" content="在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。
+Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked如果遇到checked意外就不回滚。如何改变默认规则：
+1 让checked例外也回滚：在整个方法前加上@Transactional(rollbac">
 
 
 
@@ -128,7 +135,7 @@
   };
 </script>
 
-  <title> 归档 | chesian </title>
+  <title> Spring @Transactional配置 | chesian </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +166,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,66 +287,203 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 9 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring @Transactional配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-11T13:38:47+08:00" content="2016 年 10 月 11 日">
+              2016 年 10 月 11 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaEE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaEE</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaEE/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/11/spring-transactional/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/spring-transactional/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/11/spring-transactional/" class="leancloud_visitors" data-flag-title="Spring @Transactional配置">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。</p>
+<p>Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked<br>如果遇到checked意外就不回滚。<br>如何改变默认规则：</p>
+<p>1 让checked例外也回滚：在整个方法前加上<br>@Transactional(rollbackFor=Exception.class)</p>
+<p>2 让unchecked例外不回滚：<br>@Transactional(notRollbackFor=RunTimeException.class)</p>
+<p>3 不需要事务管理的(只查询的)方法：<br>@Transactional(propagation=Propagation.NOT_SUPPORTED)</p>
+<p>注意： 如果异常被try｛｝catch｛｝了，事务就不回滚了，如果想让事务回滚必须再往外抛try｛｝catch｛throw Exception｝。</p>
+<p>@Transactional设置：<br>propagation：事务传播性设置，Propagation枚举类型。Spring支持的事务传播属性包括7种：<br>    PROPAGATION_MANDATORY：方法必须在事务中执行，否则抛出异常。<br>    PROPAGATION_NESTED：使方法运行在嵌套事务中，否则和PROPAGATION_REQUIRED一样。<br>    PROPAGATION_NEVER ：当前方法永远不在事务中运行，否则抛出异常。<br>    PROPAGATION_NOT_SUPPORTED：定义为当前事务不支持的方法，在该方法执行期间正在运行的事务会被暂停<br>    PROPAGATION_REQUIRED：当前的方法必须运行在事务中，如果没有事务就新建一个事务。新事务和方法一起开始，随着方法返回或者抛出异常时终止。<br>    PROPAGATION_REQUIRED_NEW ：当前方法必须新建一个事务，如果当前的事务正在运行则暂停。<br>    PROPAGATION_SUPPORTS ：规定当前方法支持当前事务，但是如果没有事务在运行就使用非事务方法执行。<br>isolation：事务隔离性级别设置，Isolation枚举类型<br>    ISOLATION_DEFAULT ：使用数据库默认的隔离级别<br>    ISOLATION_COMMITTED：允许其他事务已经提交的更新（防止脏读取）<br>    ISOLATION_READ_UNCOMMITTED：允许读取其他事务未提交的更新，会导致三个缺陷发生。执行速度最快<br>    ISOLATION_REPEATABLE_READ ：除非事务自身更改了数据，否则事务多次读取的数据相同（防止脏数据，多次重复读取）<br>    ISOLATION_SERIALIZABLE：隔离级别最高，可以防止三个缺陷，但是速度最慢，影响性能。</p>
+<p>readOnly：读写性事务，只读性事务，布尔型<br>    对数据库的操作中，查询是使用最频繁的操作，每次执行查询时都要从数据库中重新读取数据，有时多次读取的数据都是相同的，这样的数据操作不仅浪费了系统资源，还影响了系统速度。对访问量大的程序来说，节省这部分资源可以大大提    升系统速度。<br>   将事务声明为只读的，那么数据库可以根据事务的特性优化事务的读取操作</p>
+<p>timeout：超时时间，单位秒<br>事务可能因为某种原因很长时间没有反应，这期间可能锁定了数据库表，影响性能。设置超时时间，如果超过该时间，事务自动回滚。</p>
+<p>rollbackFor：一组异常类的实例，遇到时必须进行回滚<br>rollbackForClassname：一组异常类的名字，遇到时必须进行回滚<br>noRollbackFor：一组异常类的实例，遇到时必须不回滚<br>noRollbackForClassname：一组异常类的名字，遇到时必须不回滚</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_weixin.jpg" alt="陈世强 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinzhifu.png" alt="陈世强 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="陈世强 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/11/spring-transactional/" itemprop="url">
-              
-                <span itemprop="name">Spring @Transactional配置</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/17/scrapy-five-module/" rel="next" title="Scrapy五大组件介绍">
+                <i class="fa fa-chevron-left"></i> Scrapy五大组件介绍
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-11T13:38:47+08:00"
-              content="2017 年 10 月 11 日" >
-          10-11
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +491,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/11/spring-transactional/"
+           data-title="Spring @Transactional配置" data-url="http://yoursite.com/2016/10/11/spring-transactional/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -366,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/taylor.png"
@@ -464,6 +625,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -567,11 +739,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

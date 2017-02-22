@@ -304,7 +304,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/10/11/spring-transactional/" itemprop="url">
+                <a class="post-title-link" href="/2016/10/11/spring-transactional/" itemprop="url">
                   Spring @Transactional配置
                 </a>
               
@@ -318,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-11T13:38:47+08:00" content="2017 年 10 月 11 日">
-              2017 年 10 月 11 日
+            <time itemprop="dateCreated" datetime="2016-10-11T13:38:47+08:00" content="2016 年 10 月 11 日">
+              2016 年 10 月 11 日
             </time>
           </span>
 
@@ -360,8 +360,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/10/11/spring-transactional/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/11/spring-transactional/" itemprop="commentsCount"></span>
+                <a href="/2016/10/11/spring-transactional/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/spring-transactional/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2017/10/11/spring-transactional/" class="leancloud_visitors" data-flag-title="Spring @Transactional配置">
+             <span id="/2016/10/11/spring-transactional/" class="leancloud_visitors" data-flag-title="Spring @Transactional配置">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,9 +397,9 @@
           
             <p>在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。</p>
 <p>Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked<br>如果遇到checked意外就不回滚。<br>如何改变默认规则：</p>
-<p>1 让checked例外也回滚：在整个方法前加上 @Transactional(rollbackFor=Exception.class)</p>
-<p>2 让unchecked例外不回滚： @Transactional(notRollbackFor=RunTimeException.class)</p>
-<p>3 不需要事务管理的(只查询的)方法：@Transactional(propagation=Propagation.NOT_SUPPORTED)</p>
+<p>1 让checked例外也回滚：在整个方法前加上<br>@Transactional(rollbackFor=Exception.class)</p>
+<p>2 让unchecked例外不回滚：<br>@Transactional(notRollbackFor=RunTimeException.class)</p>
+<p>3 不需要事务管理的(只查询的)方法：<br>@Transactional(propagation=Propagation.NOT_SUPPORTED)</p>
 <p>注意： 如果异常被try｛｝catch｛｝了，事务就不回滚了，如果想让事务回滚必须再往外抛try｛｝catch｛throw Exception｝。</p>
 <p>@Transactional设置：<br>propagation：事务传播性设置，Propagation枚举类型。Spring支持的事务传播属性包括7种：<br>    PROPAGATION_MANDATORY：方法必须在事务中执行，否则抛出异常。<br>    PROPAGATION_NESTED：使方法运行在嵌套事务中，否则和PROPAGATION_REQUIRED一样。<br>    PROPAGATION_NEVER ：当前方法永远不在事务中运行，否则抛出异常。<br>    PROPAGATION_NOT_SUPPORTED：定义为当前事务不支持的方法，在该方法执行期间正在运行的事务会被暂停<br>    PROPAGATION_REQUIRED：当前的方法必须运行在事务中，如果没有事务就新建一个事务。新事务和方法一起开始，随着方法返回或者抛出异常时终止。<br>    PROPAGATION_REQUIRED_NEW ：当前方法必须新建一个事务，如果当前的事务正在运行则暂停。<br>    PROPAGATION_SUPPORTS ：规定当前方法支持当前事务，但是如果没有事务在运行就使用非事务方法执行。<br>isolation：事务隔离性级别设置，Isolation枚举类型<br>    ISOLATION_DEFAULT ：使用数据库默认的隔离级别<br>    ISOLATION_COMMITTED：允许其他事务已经提交的更新（防止脏读取）<br>    ISOLATION_READ_UNCOMMITTED：允许读取其他事务未提交的更新，会导致三个缺陷发生。执行速度最快<br>    ISOLATION_REPEATABLE_READ ：除非事务自身更改了数据，否则事务多次读取的数据相同（防止脏数据，多次重复读取）<br>    ISOLATION_SERIALIZABLE：隔离级别最高，可以防止三个缺陷，但是速度最慢，影响性能。</p>
 <p>readOnly：读写性事务，只读性事务，布尔型<br>    对数据库的操作中，查询是使用最频繁的操作，每次执行查询时都要从数据库中重新读取数据，有时多次读取的数据都是相同的，这样的数据操作不仅浪费了系统资源，还影响了系统速度。对访问量大的程序来说，节省这部分资源可以大大提    升系统速度。<br>   将事务声明为只读的，那么数据库可以根据事务的特性优化事务的读取操作</p>
