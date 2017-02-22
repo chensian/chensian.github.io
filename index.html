@@ -304,8 +304,212 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/22/aliyun-svn/" itemprop="url">
+                  阿里云服务器安装svn服务器端
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-22T23:07:59+08:00" content="2017 年 02 月 22 日">
+              2017 年 02 月 22 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发工具/" itemprop="url" rel="index">
+                    <span itemprop="name">开发工具</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发工具/SVN/" itemprop="url" rel="index">
+                    <span itemprop="name">SVN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/22/aliyun-svn/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/22/aliyun-svn/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/02/22/aliyun-svn/" class="leancloud_visitors" data-flag-title="阿里云服务器安装svn服务器端">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="1-安装svn服务器端"><a href="#1-安装svn服务器端" class="headerlink" title="1.安装svn服务器端"></a>1.安装svn服务器端</h4><pre><code>yum install subversion      
+</code></pre><p>从镜像下载安装svn服务器端<br>中间会提示是否ok，输入y，确认<br>安装成功提示：…..complete！</p>
+<p>依次执行如下命令：</p>
+<pre><code>cd /usr/local/              //进入目录，准备创建svn目录
+mkdir svnRepo                   //创建一个svn目录
+chmod -R 777 svnRepo            //修改目录权限为777
+svnadmin create /usr/local/svnRepo/first  //创建一个svn版本仓库first(first可以随便起名字)
+</code></pre><p>cd first/conf               //进入first版本仓库下的配置文件目录</p>
+<h4 id="2-下面要修改这个目录下的三个配置文件"><a href="#2-下面要修改这个目录下的三个配置文件" class="headerlink" title="2.下面要修改这个目录下的三个配置文件"></a>2.下面要修改这个目录下的三个配置文件</h4><p>(1)vi svnserve.conf    //配置版本库信息和用户文件和用户密码文件的路径、版本库路径<br>把</p>
+<pre><code># anon-access = read
+# auth-access = write
+# password-db = passwd
+</code></pre><p>//这四行，前面的#号和空格去掉，变成</p>
+<pre><code>anon-access = none      //改成none
+auth-access = write
+password-db = passwd
+
+realm = first           //改成自己的版本库
+</code></pre><p>保存退出</p>
+<p>(2)vi authz     //文件,创建svn组和组用户的权限</p>
+<pre><code>[groups]
+first = ddl,shl //创建一个first的组，并制定两个用户ddl和shl
+[/]             //制定根目录下的权限
+@first = rw     //first组用户权限为读写
+* = r           //其他用户只有读权限
+</code></pre><p>保存退出</p>
+<p>(3) vi passwd   //创建或修改用户密码</p>
+<pre><code>[users]
+ddl = 123456    //用户名为gep的用户的密码为123456
+shl = 123456    //。。。
+</code></pre><p>保存退出</p>
+<h4 id="3-然后要设置自启动"><a href="#3-然后要设置自启动" class="headerlink" title="3.然后要设置自启动"></a>3.然后要设置自启动</h4><pre><code>vi /etc/rc.local    
+</code></pre><p>打开自启动文件<br>文件内容如下</p>
+<pre><code>#!/bin/sh
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don&apos;t
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+</code></pre><p>添加下面一行</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first
+</code></pre><p>保存退出</p>
+<pre><code>ps aux |grep &apos;svn&apos;  查找所有svn启动的进程
+</code></pre><p>杀死 然后启动svn</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first 启动svn(可以把这个放到/etc/local/rc.local文件中，实现开机自启动)
+</code></pre><h4 id="4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件"><a href="#4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件" class="headerlink" title="4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件"></a>4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件</h4><p>以配置 first 版本库为例</p>
+<pre><code>vi authz
+
+[groups]
+company = user1,user2
+[first:/]             //指定版本库跟目录下的权限
+@company = rw     //company组用户权限为读写
+* = r           //其他用户只有读权限
+</code></pre><p>保存退出</p>
+<p>vi passwd 设置组中用户的账号和密码</p>
+<pre><code>[users]
+user1  = 123456
+user2 = 123456
+</code></pre><h4 id="5-客户端访问"><a href="#5-客户端访问" class="headerlink" title="5.客户端访问"></a>5.客户端访问</h4><p>假设客户端使用tortoiseSVN<br>打开资源库浏览器输入地址, svn://你的svn服务器ip:3690<br>输入用户名ddl 密码12345<br>因为没有网资源库里放文件所以需要你用客户端右键【create forder】，然后【add forder】</p>
+<h4 id="6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库"><a href="#6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库" class="headerlink" title="6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库"></a>6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库</h4><p>1：单版本库起动 </p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first
+</code></pre><p>2：多版本库起动</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo
+</code></pre><p>区别在于起动svn时候的命令中的启动参数-r指定的目录。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/02/22/svn-rule/" itemprop="url">
-                  svn-rule
+                  SVN提交更新的一些准则
                 </a>
               
             
@@ -371,7 +575,7 @@
 
           
           
-             <span id="/2017/02/22/svn-rule/" class="leancloud_visitors" data-flag-title="svn-rule">
+             <span id="/2017/02/22/svn-rule/" class="leancloud_visitors" data-flag-title="SVN提交更新的一些准则">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2003,127 +2207,13 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/02/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-02T11:51:50+08:00" content="2015 年 01 月 02 日">
-              2015 年 01 月 02 日
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/02/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/02/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2015/01/02/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2162,7 +2252,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2179,7 +2269,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
