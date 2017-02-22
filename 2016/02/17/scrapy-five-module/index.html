@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Scrapy," />
 
 
 
@@ -102,15 +102,21 @@
 
 
 
-<meta name="description" content="你陪着我的时候，我从没有羡慕任何人。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chesian">
-<meta property="og:url" content="http://yoursite.com/archives/2016/index.html">
+<meta name="description" content="Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。
+调度器调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy五大组件介绍">
+<meta property="og:url" content="http://yoursite.com/2016/02/17/scrapy-five-module/index.html">
 <meta property="og:site_name" content="chesian">
-<meta property="og:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta property="og:description" content="Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。
+调度器调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005LZfaWgy1fcyi9y62cxj30jg0dqmzl">
+<meta property="og:updated_time" content="2017-02-22T14:45:35.844Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chesian">
-<meta name="twitter:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta name="twitter:title" content="Scrapy五大组件介绍">
+<meta name="twitter:description" content="Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。
+调度器调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005LZfaWgy1fcyi9y62cxj30jg0dqmzl">
 
 
 
@@ -128,7 +134,7 @@
   };
 </script>
 
-  <title> 归档 | chesian </title>
+  <title> Scrapy五大组件介绍 | chesian </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +165,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,66 +286,211 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 9 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Scrapy五大组件介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-17T18:27:11+08:00" content="2016 年 02 月 17 日">
+              2016 年 02 月 17 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫/Scrapy/" itemprop="url" rel="index">
+                    <span itemprop="name">Scrapy</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/17/scrapy-five-module/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/17/scrapy-five-module/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/02/17/scrapy-five-module/" class="leancloud_visitors" data-flag-title="Scrapy五大组件介绍">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。</p>
+<h3 id="调度器"><a href="#调度器" class="headerlink" title="调度器"></a>调度器</h3><p>调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功）。用户可以跟据自己的需求定制调度器。</p>
+<h3 id="下载器"><a href="#下载器" class="headerlink" title="下载器"></a>下载器</h3><p>下载器，是所有组件中负担最大的，它用于高速地下载网络上的资源。Scrapy的下载器代码不会太复杂，但效率高，主要的原因是Scrapy下载器是建立在twisted这个高效的异步模型上的(其实整个框架都在建立在这个模型上的)。</p>
+<h3 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h3><p>爬虫，是用户最关心的部份。用户定制自己的爬虫，用于从特定的网页中提取自己需要的信息，即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy继续抓取下一个页面。</p>
+<h3 id="实体管道"><a href="#实体管道" class="headerlink" title="实体管道"></a>实体管道</h3><p>实体管道，用于处理爬虫提取的实体。主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。</p>
+<h3 id="Scrapy引擎"><a href="#Scrapy引擎" class="headerlink" title="Scrapy引擎"></a>Scrapy引擎</h3><p>Scrapy引擎是整个框架的核心。它用来控制调试器、下载器、爬虫。实际上，引擎相当于计算机的CPU,它控制着整个流程。</p>
+<h2 id="Scrapy运行流程"><a href="#Scrapy运行流程" class="headerlink" title="Scrapy运行流程"></a>Scrapy运行流程</h2><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fcyi9y62cxj30jg0dqmzl" alt=""></p>
+<ol>
+<li>首先，引擎从调度器中取出一个链接(URL)用于接下来的抓取</li>
+<li>引擎把URL封装成一个请求(Request)传给下载器，下载器把资源下载下来，并封装成应答包(Response)</li>
+<li>然后，爬虫解析Response</li>
+<li>若是解析出实体（Item）,则交给实体管道进行进一步的处理。</li>
+<li>若是解析出的是链接（URL）,则把URL交给Scheduler等待抓取</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_weixin.jpg" alt="陈世强 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinzhifu.png" alt="陈世强 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="陈世强 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scrapy/" rel="tag">#Scrapy</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/02/17/scrapy-five-module/" itemprop="url">
-              
-                <span itemprop="name">Scrapy五大组件介绍</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/07/linux-mysql-error/" rel="next" title="Starting MySQL. ERROR">
+                <i class="fa fa-chevron-left"></i> Starting MySQL. ERROR
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-02-17T18:27:11+08:00"
-              content="2016 年 02 月 17 日" >
-          02-17
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/spring-transactional/" rel="prev" title="Spring @Transactional配置">
+                Spring @Transactional配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +498,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/17/scrapy-five-module/"
+           data-title="Scrapy五大组件介绍" data-url="http://yoursite.com/2016/02/17/scrapy-five-module/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -366,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/taylor.png"
@@ -464,6 +632,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#调度器"><span class="nav-number">1.</span> <span class="nav-text">调度器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载器"><span class="nav-number">2.</span> <span class="nav-text">下载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫"><span class="nav-number">3.</span> <span class="nav-text">爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体管道"><span class="nav-number">4.</span> <span class="nav-text">实体管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy引擎"><span class="nav-number">5.</span> <span class="nav-text">Scrapy引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scrapy运行流程"><span class="nav-number"></span> <span class="nav-text">Scrapy运行流程</span></a></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -567,11 +746,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

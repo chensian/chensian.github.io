@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Mysql,Centos," />
 
 
 
@@ -102,15 +102,34 @@
 
 
 
-<meta name="description" content="你陪着我的时候，我从没有羡慕任何人。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chesian">
-<meta property="og:url" content="http://yoursite.com/archives/2016/index.html">
+<meta name="description" content="Centos6.4 用rpm方式安装MySql5.61. 查看系统是否安装了MySQL使用命令：
+#rpm -qa | grep mysql 
+2. 卸载已安装的MySQL卸载mysql命令如下： 
+#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
+要将 /var/lib/mysql文件夹下的所有文件都删除干净
+3. 安装新的MySQL命令如下：
+#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos6.4 用rpm方式安装MySql5.6">
+<meta property="og:url" content="http://yoursite.com/2015/07/26/centos-install-mysql/index.html">
 <meta property="og:site_name" content="chesian">
-<meta property="og:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta property="og:description" content="Centos6.4 用rpm方式安装MySql5.61. 查看系统是否安装了MySQL使用命令：
+#rpm -qa | grep mysql 
+2. 卸载已安装的MySQL卸载mysql命令如下： 
+#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
+要将 /var/lib/mysql文件夹下的所有文件都删除干净
+3. 安装新的MySQL命令如下：
+#">
+<meta property="og:updated_time" content="2017-02-22T14:44:34.628Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chesian">
-<meta name="twitter:description" content="你陪着我的时候，我从没有羡慕任何人。">
+<meta name="twitter:title" content="Centos6.4 用rpm方式安装MySql5.6">
+<meta name="twitter:description" content="Centos6.4 用rpm方式安装MySql5.61. 查看系统是否安装了MySQL使用命令：
+#rpm -qa | grep mysql 
+2. 卸载已安装的MySQL卸载mysql命令如下： 
+#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
+要将 /var/lib/mysql文件夹下的所有文件都删除干净
+3. 安装新的MySQL命令如下：
+#">
 
 
 
@@ -128,7 +147,7 @@
   };
 </script>
 
-  <title> 归档 | chesian </title>
+  <title> Centos6.4 用rpm方式安装MySql5.6 | chesian </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +178,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,66 +299,249 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 9 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Centos6.4 用rpm方式安装MySql5.6
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-26T17:24:35+08:00" content="2015 年 07 月 26 日">
+              2015 年 07 月 26 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/服务器/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/26/centos-install-mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/26/centos-install-mysql/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/07/26/centos-install-mysql/" class="leancloud_visitors" data-flag-title="Centos6.4 用rpm方式安装MySql5.6">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h1 id="Centos6-4-用rpm方式安装MySql5-6"><a href="#Centos6-4-用rpm方式安装MySql5-6" class="headerlink" title="Centos6.4 用rpm方式安装MySql5.6"></a>Centos6.4 用rpm方式安装MySql5.6</h1><h3 id="1-查看系统是否安装了MySQL"><a href="#1-查看系统是否安装了MySQL" class="headerlink" title="1. 查看系统是否安装了MySQL"></a>1. 查看系统是否安装了MySQL</h3><p>使用命令：</p>
+<pre><code>#rpm -qa | grep mysql 
+</code></pre><h3 id="2-卸载已安装的MySQL"><a href="#2-卸载已安装的MySQL" class="headerlink" title="2. 卸载已安装的MySQL"></a>2. 卸载已安装的MySQL</h3><p>卸载mysql命令如下： </p>
+<pre><code>#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
+</code></pre><p>要将 /var/lib/mysql文件夹下的所有文件都删除干净</p>
+<h3 id="3-安装新的MySQL"><a href="#3-安装新的MySQL" class="headerlink" title="3. 安装新的MySQL"></a>3. 安装新的MySQL</h3><p>命令如下：</p>
+<pre><code>#rpm -ivh MySQL-server-5.5.30-1.el6.x86_64.rpm
+
+#rpm -ivh MySQL-client-5.5.30-1.el6.x86_64.rpm
+
+#rpm -ivh MySQL-devel-5.5.30-1.el6.x86_64.rpm
+</code></pre><h3 id="4-启动MySQL服务"><a href="#4-启动MySQL服务" class="headerlink" title="4. 启动MySQL服务"></a>4. 启动MySQL服务</h3><p>方法一：重新启动系统</p>
+<p>方法二：#service mysql start</p>
+<pre><code>查看MySQL运行状态的方法：
+
+
+ 使用命令：# /etc/rc.d/init.d/mysql status
+ 结果：   显示 “SUCCESS” 则已经运行
+              显示 “FAILED”  则没有运行
+</code></pre><h3 id="5-MySQL服务一些其他命令"><a href="#5-MySQL服务一些其他命令" class="headerlink" title="5. MySQL服务一些其他命令"></a>5. MySQL服务一些其他命令</h3><pre><code>a、察看mysql是否在自动启动列表：  #　/sbin/chkconfig –list
+b、添加mysql到系统自启动服务组：  #　/sbin/chkconfig　– add　mysql
+c、把mysql从启动服务组中删除：    #　/sbin/chkconfig　– del　mysql  
+d、停止mysql服务：                #  service mysql stop
+e、脚本启动mysql服务：            #  /etc/rc.d/init.d/mysqld start  
+f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
+</code></pre><h3 id="6、安装完成之后为MySQL设置root密码。"><a href="#6、安装完成之后为MySQL设置root密码。" class="headerlink" title="6、安装完成之后为MySQL设置root密码。"></a>6、安装完成之后为MySQL设置root密码。</h3><p>命令如下：</p>
+<pre><code># mysql -u root -p
+</code></pre><p>会提示输入密码，初始root密码保存在’/root/.mysql_secret’文件中<br>接着输入</p>
+<pre><code>mysql&gt;SET PASSWORD = PASSWORD(&apos;123456&apos;);
+</code></pre><h3 id="7、mysql安装目录说明"><a href="#7、mysql安装目录说明" class="headerlink" title="7、mysql安装目录说明"></a>7、mysql安装目录说明</h3><pre><code>/var/lib/mysql          数据库文件
+/usr/share/mysql        命令及配置文件
+/usr/bin                (mysqladmin、mysqldump等命令)
+</code></pre><h3 id="8、linux-下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式"><a href="#8、linux-下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式" class="headerlink" title="8、linux 下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式"></a>8、linux 下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式</h3><p>   1、拷贝 /usr/share/mysql/my-huge.cnf到/etc/my.cnf（如果已有该文件可以直接修改）</p>
+<pre><code>    命令如下：
+
+# cp /usr/share/mysql/my-huge.cnf  /etc/my.cnf
+</code></pre><p>   2、修改my.cnf 文件<br>        在 [mysqld]下增加<br>        lower_case_table_names=1 #表名全部为小写，避免出现大小写敏感</p>
+<p>   3、重启mysql</p>
+<pre><code># service mysql restart
+</code></pre><h3 id="9-可选-、为连接MySQL的主机分配权限："><a href="#9-可选-、为连接MySQL的主机分配权限：" class="headerlink" title="9(可选)、为连接MySQL的主机分配权限："></a>9(可选)、为连接MySQL的主机分配权限：</h3><p>   命令如下：</p>
+<pre><code>&gt;mysql GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO root@xxx.xxx.x.xxidentified by &apos;123456&apos;; //xxx.xxx.x.xx是你的IP
+</code></pre><h3 id="10、开机启动MySQL"><a href="#10、开机启动MySQL" class="headerlink" title="10、开机启动MySQL"></a>10、开机启动MySQL</h3><p>用root用户登录终端</p>
+<p>查看是否已经有MySQL的服务</p>
+<pre><code># chkconfig --list
+</code></pre><p>如果没有MySQL(如果有请忽略这个步骤)</p>
+<pre><code># chkconfig --add mysql
+</code></pre><p>设置开机启动mysql服务</p>
+<pre><code># chkconfig mysql on
+</code></pre><h3 id="11-可选-、更改MySQL默认字符集-默认字符集和操作系统字符集一样，所以不需要设置"><a href="#11-可选-、更改MySQL默认字符集-默认字符集和操作系统字符集一样，所以不需要设置" class="headerlink" title="11(可选)、更改MySQL默认字符集 (默认字符集和操作系统字符集一样，所以不需要设置)"></a>11(可选)、更改MySQL默认字符集 (默认字符集和操作系统字符集一样，所以不需要设置)</h3><p>查看mysql字符集：</p>
+<pre><code>mysql&gt; show variables like &apos;character_set_%&apos;;
+</code></pre>
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_weixin.jpg" alt="陈世强 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixinzhifu.png" alt="陈世强 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="陈世强 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mysql/" rel="tag">#Mysql</a>
+          
+            <a href="/tags/Centos/" rel="tag">#Centos</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/02/17/scrapy-five-module/" itemprop="url">
-              
-                <span itemprop="name">Scrapy五大组件介绍</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/12/maven-eclipse/" rel="next" title="maven 不能设置为web3.0人解决方法">
+                <i class="fa fa-chevron-left"></i> maven 不能设置为web3.0人解决方法
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-02-17T18:27:11+08:00"
-              content="2016 年 02 月 17 日" >
-          02-17
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/29/Json-jsonconfig/" rel="prev" title="JSON 中JsonConfig的使用">
+                JSON 中JsonConfig的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +549,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/07/26/centos-install-mysql/"
+           data-title="Centos6.4 用rpm方式安装MySql5.6" data-url="http://yoursite.com/2015/07/26/centos-install-mysql/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -366,8 +576,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/taylor.png"
@@ -464,6 +683,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Centos6-4-用rpm方式安装MySql5-6"><span class="nav-number">1.</span> <span class="nav-text">Centos6.4 用rpm方式安装MySql5.6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看系统是否安装了MySQL"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 查看系统是否安装了MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-卸载已安装的MySQL"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 卸载已安装的MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装新的MySQL"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 安装新的MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-启动MySQL服务"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 启动MySQL服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-MySQL服务一些其他命令"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. MySQL服务一些其他命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、安装完成之后为MySQL设置root密码。"><span class="nav-number">1.0.6.</span> <span class="nav-text">6、安装完成之后为MySQL设置root密码。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、mysql安装目录说明"><span class="nav-number">1.0.7.</span> <span class="nav-text">7、mysql安装目录说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、linux-下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式"><span class="nav-number">1.0.8.</span> <span class="nav-text">8、linux 下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-可选-、为连接MySQL的主机分配权限："><span class="nav-number">1.0.9.</span> <span class="nav-text">9(可选)、为连接MySQL的主机分配权限：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10、开机启动MySQL"><span class="nav-number">1.0.10.</span> <span class="nav-text">10、开机启动MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-可选-、更改MySQL默认字符集-默认字符集和操作系统字符集一样，所以不需要设置"><span class="nav-number">1.0.11.</span> <span class="nav-text">11(可选)、更改MySQL默认字符集 (默认字符集和操作系统字符集一样，所以不需要设置)</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -567,11 +797,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
