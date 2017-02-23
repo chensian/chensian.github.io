@@ -110,8 +110,7 @@
 # cd tools
 # tar -xzvf ../tools/apache-tomcat-8.0.26.tar.gz
 # tar -xzvf ../tools/jdk-8u91-linux-x64.gz
-
-# vim /etc">
+JDK安装# vim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos 开发环境搭建">
 <meta property="og:url" content="http://yoursite.com/2017/01/03/centos-built-develope-envs/index.html">
@@ -124,9 +123,8 @@
 # cd tools
 # tar -xzvf ../tools/apache-tomcat-8.0.26.tar.gz
 # tar -xzvf ../tools/jdk-8u91-linux-x64.gz
-
-# vim /etc">
-<meta property="og:updated_time" content="2017-02-23T13:14:24.152Z">
+JDK安装# vim">
+<meta property="og:updated_time" content="2017-02-23T15:31:26.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos 开发环境搭建">
 <meta name="twitter:description" content="centos 开发环境搭建# mkdir chen
@@ -137,8 +135,7 @@
 # cd tools
 # tar -xzvf ../tools/apache-tomcat-8.0.26.tar.gz
 # tar -xzvf ../tools/jdk-8u91-linux-x64.gz
-
-# vim /etc">
+JDK安装# vim">
 
 
 
@@ -393,11 +390,72 @@
 # cd tools
 # tar -xzvf ../tools/apache-tomcat-8.0.26.tar.gz
 # tar -xzvf ../tools/jdk-8u91-linux-x64.gz
-
-# vim /etc/profile
+</code></pre><h4 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h4><pre><code># vim /etc/profile
 # export JAVA_HOME=/home/chen/softwares/jdk1.8.0_91
 # export PATH=$JAVA_HOME/bin:$PATH
 # source /etc/profile
+</code></pre><h4 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h4><pre><code># mv apache-tomcat-8.0.26 tomcat
+# cd tomcat/bin
+# ./startup.sh
+# ./shutdown.sh
+</code></pre><h4 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h4><pre><code># tar -zxvf mysql-version.tar.gz
+# mv mysql-version  /usr/local/mysql
+# groupadd mysql
+# useradd -r -g mysql mysql
+# cd /usr/local/mysql
+# bin/mysqld --initialize
+# [Note] A temporary password is generated for root@localhost: **mjT,#x_5sW
+</code></pre><p>记住最后的密码</p>
+<pre><code># vim /etc/my.cnf
+</code></pre><p>添加以下</p>
+<pre><code>[mysqld]
+character_set_server=utf8
+init_connect=&apos;SET NAMES utf8&apos;
+[client]
+default-character-set=utf8
+</code></pre><p>配置mysql服务开机自动启动</p>
+<pre><code># cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld 
+# chkconfig --add mysqld   # 添加mysqld
+# chkconfig mysqld on      # 用这个命令设置开机启动
+</code></pre><p>mysql服务的启动/重启/停止</p>
+<pre><code># service mysqld start                         # 启动服务
+# service mysqld restart                       # 重启服务
+# service mysqld stop                          # 停止服务
+</code></pre><p>初始化mysql用户root的密码</p>
+<pre><code># mysql -u root -p &apos;**mjT,#x_5sW&apos;
+# mysql&gt; alter user &apos;root&apos;@&apos;localhost&apos; identified by &apos;root&apos;;
+# mysql&gt; use mysql
+# mysql&gt; update user set authentication_string = PASSWORD(&apos;123456&apos;) where user = &apos;root&apos;;
+</code></pre><p>mysql软连接</p>
+<pre><code>添加
+ln -s /usr/local/mysql mysql
+删除
+rm mysql
+</code></pre><h4 id="Zookeeper安装"><a href="#Zookeeper安装" class="headerlink" title="Zookeeper安装"></a>Zookeeper安装</h4><p>1：把zookeeper的压缩包上传到linux系统。<br>2：解压缩压缩包</p>
+<pre><code>tar -zxvf zookeeper-3.4.6.tar.gz
+</code></pre><p>3：进入zookeeper-3.4.6目录，创建data文件夹。</p>
+<p>4：把zoo_sample.cfg改名为zoo.cfg</p>
+<pre><code>[root@localhost conf]# mv zoo_sample.cfg zoo.cfg
+</code></pre><p>5：修改data属性：</p>
+<pre><code># vim zoo.cfg
+dataDir=/root/zookeeper-3.4.6/data
+</code></pre><p>6：启动zookeeper</p>
+<pre><code>[root@localhost bin]# ./zkServer.sh start
+</code></pre><p>关闭zookeeper：</p>
+<pre><code>[root@localhost bin]# ./zkServer.sh stop
+</code></pre><p>查看zookeeper状态：</p>
+<pre><code>[root@localhost bin]# ./zkServer.sh status
+</code></pre><h4 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h4><pre><code># cd redis
+# yum install gcc
+# make MALLOC=libc
+# make install
+</code></pre><p>1、修改redis.conf文件</p>
+<pre><code># 修改daemonize为yes，即默认以后台程序方式运行（还记得前面手动使用&amp;号强制后台运行吗）。
+daemonize no
+</code></pre><p>启动服务</p>
+<pre><code># src/redis-server redis.conf
+</code></pre><p>关闭服务</p>
+<pre><code># src/redis-cli shutdown
 </code></pre>
       
     </div>
@@ -619,7 +677,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#centos-开发环境搭建"><span class="nav-number">1.</span> <span class="nav-text">centos 开发环境搭建</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#centos-开发环境搭建"><span class="nav-number">1.</span> <span class="nav-text">centos 开发环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK安装"><span class="nav-number">1.1.</span> <span class="nav-text">JDK安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomcat安装"><span class="nav-number">1.2.</span> <span class="nav-text">Tomcat安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql安装"><span class="nav-number">1.3.</span> <span class="nav-text">Mysql安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper安装"><span class="nav-number">1.4.</span> <span class="nav-text">Zookeeper安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis安装"><span class="nav-number">1.5.</span> <span class="nav-text">Redis安装</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
