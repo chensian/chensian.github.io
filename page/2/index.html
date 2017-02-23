@@ -304,6 +304,489 @@
             
               
                 
+                <a class="post-title-link" href="/2015/08/29/springmvc4-date-json/" itemprop="url">
+                  springmvc4-date-json
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-29T22:20:55+08:00" content="2015 年 08 月 29 日">
+              2015 年 08 月 29 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaEE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaEE</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaEE/Springmvc/" itemprop="url" rel="index">
+                    <span itemprop="name">Springmvc</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/29/springmvc4-date-json/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/29/springmvc4-date-json/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/08/29/springmvc4-date-json/" class="leancloud_visitors" data-flag-title="springmvc4-date-json">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1、方法一：全局处理"><a href="#1、方法一：全局处理" class="headerlink" title="1、方法一：全局处理"></a>1、方法一：全局处理</h3><pre><code>&lt;mvc:annotation-driven&gt;  
+    &lt;!-- 处理responseBody 里面日期类型 --&gt;  
+        &lt;mvc:message-converters&gt;  
+            &lt;bean class=&quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&quot;&gt;  
+                &lt;property name=&quot;objectMapper&quot;&gt;  
+                    &lt;bean class=&quot;com.fasterxml.jackson.databind.ObjectMapper&quot;&gt;  
+                        &lt;property name=&quot;dateFormat&quot;&gt;  
+                            &lt;bean class=&quot;java.text.SimpleDateFormat&quot;&gt;  
+                                &lt;constructor-arg type=&quot;java.lang.String&quot; value=&quot;yyyy-MM-dd HH:mm:ss&quot; /&gt;  
+                            &lt;/bean&gt;  
+                        &lt;/property&gt;  
+                    &lt;/bean&gt;  
+                &lt;/property&gt;  
+            &lt;/bean&gt;  
+        &lt;/mvc:message-converters&gt;  
+    &lt;/mvc:annotation-driven&gt;  
+</code></pre><h3 id="方法二：局部注解处理"><a href="#方法二：局部注解处理" class="headerlink" title="方法二：局部注解处理"></a>方法二：局部注解处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">import java.io.IOException;  </div><div class="line">import java.text.SimpleDateFormat;  </div><div class="line">import java.util.Date;  </div><div class="line">  </div><div class="line">import com.fasterxml.jackson.core.JsonGenerator;  </div><div class="line">import com.fasterxml.jackson.core.JsonProcessingException;  </div><div class="line">import com.fasterxml.jackson.databind.JsonSerializer;  </div><div class="line">import com.fasterxml.jackson.databind.SerializerProvider;  </div><div class="line">  </div><div class="line">/**  </div><div class="line"> * ClassName:DateJsonSerializer &lt;br/&gt;  </div><div class="line"> * Function: 日期类型格式化，格式化为：yyyy-MM-dd HH:mm:ss 格式. 用法如下：&lt;br/&gt;  </div><div class="line"> * Reason:   @JsonSerialize(using=DateJsonSerializer.class) </div><div class="line"> *           @Column(name=&quot;BIRTHDAY&quot;) </div><div class="line"> *           public Date getBirthday() &#123; </div><div class="line"> *              return birthday; </div><div class="line"> *           &#125; </div><div class="line"> *          . &lt;br/&gt;  </div><div class="line"> * Date:     2014年7月10日 下午1:26:08 &lt;br/&gt;  </div><div class="line"> * @author   zhangzhaoyu  </div><div class="line"> * @version   1.0 </div><div class="line"> * @since    JDK 1.7  </div><div class="line"> * @see        </div><div class="line"> */  </div><div class="line">public class DateJsonSerializer extends JsonSerializer&lt;Date&gt; &#123;  </div><div class="line">  </div><div class="line">    @Override  </div><div class="line">    public void serialize(Date value, JsonGenerator jgen,  </div><div class="line">            SerializerProvider provider) throws IOException,  </div><div class="line">            JsonProcessingException &#123;  </div><div class="line">         SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  </div><div class="line">         String formattedDate = formatter.format(value);  </div><div class="line">         jgen.writeString(formattedDate);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法三：jackson-注解处理"><a href="#方法三：jackson-注解处理" class="headerlink" title="方法三：jackson 注解处理"></a>方法三：jackson 注解处理</h3><p>@JsonIgnoreProperties<br>此注解是类注解，作用是json序列化时将javabean中的一些属性忽略掉，序列化和反序列化都受影响。  </p>
+<p>@JsonIgnore<br>此注解用于属性或者方法上（最好是属性上），作用和上面的@JsonIgnoreProperties一样。  </p>
+<p>@JsonFormat<br>此注解用于属性或者方法上（最好是属性上），可以方便的把Date类型直接转化为我们想要的模式，比如@JsonFormat(pattern = “yyyy-MM-dd HH-mm-ss”)  </p>
+<p>@JsonSerialize  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"> // 反序列化一个固定格式的Date    </div><div class="line">    @JsonDeserialize(using = CustomDateDeserialize.class)    </div><div class="line">    public void setBirthday(Date birthday) &#123;    </div><div class="line">        this.birthday = birthday;    </div><div class="line">    &#125;   </div><div class="line">  </div><div class="line"> // 序列化指定格式的double格式    </div><div class="line">    @JsonSerialize(using = CustomDoubleSerialize.class)    </div><div class="line">    public double getSalary() &#123;    </div><div class="line">        return salary;    </div><div class="line">    &#125;    </div><div class="line">  </div><div class="line">public class CustomDateDeserialize extends JsonDeserializer&lt;Date&gt; &#123;    </div><div class="line">    </div><div class="line">    private SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);    </div><div class="line">    </div><div class="line">    @Override    </div><div class="line">    public Date deserialize(JsonParser jp, DeserializationContext ctxt)    </div><div class="line">            throws IOException, JsonProcessingException &#123;    </div><div class="line">    </div><div class="line">        Date date = null;    </div><div class="line">        try &#123;    </div><div class="line">            date = sdf.parse(jp.getText());    </div><div class="line">        &#125; catch (ParseException e) &#123;    </div><div class="line">            e.printStackTrace();    </div><div class="line">        &#125;    </div><div class="line">        return date;    </div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/08/29/Json-jsonconfig/" itemprop="url">
+                  JSON 中JsonConfig的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-29T20:11:26+08:00" content="2015 年 08 月 29 日">
+              2015 年 08 月 29 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JSON/" itemprop="url" rel="index">
+                    <span itemprop="name">JSON</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/29/Json-jsonconfig/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/29/Json-jsonconfig/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/08/29/Json-jsonconfig/" class="leancloud_visitors" data-flag-title="JSON 中JsonConfig的使用">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们通常对一个Json串和java对象进行互转时，经常会有选择性的过滤掉一些属性值，而json-lib包中的JsonConfig为我们提供了这种 功能，具体实现方法有以下几种。(1)建立JsonConfig实例，并配置属性排除列表,(2)用属性过滤器,(3)写一个自定义的 JsonBeanProcessor.</p>
+<h3 id="1-实现JSONString接口的方法"><a href="#1-实现JSONString接口的方法" class="headerlink" title="1. 实现JSONString接口的方法"></a>1. 实现JSONString接口的方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class Person implements JSONString &#123;  </div><div class="line">private String name;  </div><div class="line">private String lastname;  </div><div class="line">private Address address;  </div><div class="line"></div><div class="line">// getters &amp; setters  </div><div class="line"></div><div class="line">public String toJSONString() &#123;</div><div class="line">return &quot;&#123;name:&apos;&quot;+name+&quot;&apos;,lastname:&apos;&quot;+lastname+&quot;&apos;&#125;&quot;;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除"><a href="#2-第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除" class="headerlink" title="2.第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除"></a>2.第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class Person &#123;  </div><div class="line">    private String name;  </div><div class="line">    private String lastname;  </div><div class="line">    private Address address;  </div><div class="line">    // getters &amp; setters // </div><div class="line">&#125;  </div><div class="line"></div><div class="line">JsonConfig jsonConfig = new JsonConfig();  </div><div class="line">jsonConfig.setExclusions( new String[]&#123;&quot;address&quot;&#125;);  </div><div class="line">Person bean = new Person(&quot;jack&quot;,&quot;li&quot;);  </div><div class="line">JSON json = JSONSerializer.toJSON(bean, jsonConfig);</div></pre></td></tr></table></figure>
+<h3 id="3-使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象"><a href="#3-使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象" class="headerlink" title="3. 使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象"></a>3. 使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class Person &#123;  </div><div class="line">private String name;  </div><div class="line">private String lastname;  </div><div class="line">private Address address;  </div><div class="line"></div><div class="line">// getters &amp; setters  </div><div class="line">&#125;  </div><div class="line"></div><div class="line">JsonConfig jsonConfig = new JsonConfig();  </div><div class="line">jsonConfig.setJsonPropertyFilter( new PropertyFilter()&#123;  </div><div class="line"></div><div class="line">public boolean apply(Object source/* 属性的拥有者 */ , String name /*属性名字*/ , Object value/* 属性值 */ )&#123;  </div><div class="line">// return true to skip name  </div><div class="line">return source instanceof Person &amp;&amp; name.equals(&quot;address&quot;);  </div><div class="line">&#125;  </div><div class="line">&#125;);  </div><div class="line">Person bean = new Person(&quot;jack&quot;,&quot;li&quot;); </div><div class="line">JSON json = JSONSerializer.toJSON( bean, jsonConfig )</div></pre></td></tr></table></figure>
+<h3 id="4-最后来看JsonBeanProcessor-这种方式和实现JsonString很类似，返回一个代表原来的domain类的合法JSONObject"><a href="#4-最后来看JsonBeanProcessor-这种方式和实现JsonString很类似，返回一个代表原来的domain类的合法JSONObject" class="headerlink" title="4. 最后来看JsonBeanProcessor,这种方式和实现JsonString很类似，返回一个代表原来的domain类的合法JSONObject"></a>4. 最后来看JsonBeanProcessor,这种方式和实现JsonString很类似，返回一个代表原来的domain类的合法JSONObject</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class Person &#123;  </div><div class="line">private String name;  </div><div class="line">private String lastname;  </div><div class="line">private Address address;  </div><div class="line"></div><div class="line">// getters &amp; setters  </div><div class="line">&#125;  </div><div class="line"></div><div class="line">JsonConfig jsonConfig = new JsonConfig();  </div><div class="line">jsonConfig.registerJsonBeanProcessor( Person.class, new JsonBeanProcessor()&#123;  </div><div class="line"></div><div class="line">public JSONObject processBean( Object bean, JsonConfig jsonConfig )&#123;  </div><div class="line">if(!(bean instanceof Person))&#123;  </div><div class="line">return new JSONObject(true);  </div><div class="line">&#125;  </div><div class="line">Person person = (Person) bean;  </div><div class="line">return new JSONObject() .element( &quot;name&quot;, person.getName()) .element( &quot;lastname&quot;, person.getLastname());  </div><div class="line">&#125;  </div><div class="line">&#125;);  </div><div class="line"></div><div class="line">Person bean = new Person(&quot;jack&quot;,&quot;li&quot;); </div><div class="line">JSON json = JSONSerializer.toJSON( bean, jsonConfig );</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/26/centos-install-mysql/" itemprop="url">
+                  Centos6.4 用rpm方式安装MySql5.6
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-26T17:24:35+08:00" content="2015 年 07 月 26 日">
+              2015 年 07 月 26 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/服务器/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/26/centos-install-mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/26/centos-install-mysql/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/07/26/centos-install-mysql/" class="leancloud_visitors" data-flag-title="Centos6.4 用rpm方式安装MySql5.6">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Centos6-4-用rpm方式安装MySql5-6"><a href="#Centos6-4-用rpm方式安装MySql5-6" class="headerlink" title="Centos6.4 用rpm方式安装MySql5.6"></a>Centos6.4 用rpm方式安装MySql5.6</h1><h3 id="1-查看系统是否安装了MySQL"><a href="#1-查看系统是否安装了MySQL" class="headerlink" title="1. 查看系统是否安装了MySQL"></a>1. 查看系统是否安装了MySQL</h3><p>使用命令：</p>
+<pre><code>#rpm -qa | grep mysql 
+</code></pre><h3 id="2-卸载已安装的MySQL"><a href="#2-卸载已安装的MySQL" class="headerlink" title="2. 卸载已安装的MySQL"></a>2. 卸载已安装的MySQL</h3><p>卸载mysql命令如下： </p>
+<pre><code>#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
+</code></pre><p>要将 /var/lib/mysql文件夹下的所有文件都删除干净</p>
+<h3 id="3-安装新的MySQL"><a href="#3-安装新的MySQL" class="headerlink" title="3. 安装新的MySQL"></a>3. 安装新的MySQL</h3><p>命令如下：</p>
+<pre><code>#rpm -ivh MySQL-server-5.5.30-1.el6.x86_64.rpm
+
+#rpm -ivh MySQL-client-5.5.30-1.el6.x86_64.rpm
+
+#rpm -ivh MySQL-devel-5.5.30-1.el6.x86_64.rpm
+</code></pre><h3 id="4-启动MySQL服务"><a href="#4-启动MySQL服务" class="headerlink" title="4. 启动MySQL服务"></a>4. 启动MySQL服务</h3><p>方法一：重新启动系统</p>
+<p>方法二：#service mysql start</p>
+<pre><code>查看MySQL运行状态的方法：
+
+
+ 使用命令：# /etc/rc.d/init.d/mysql status
+ 结果：   显示 “SUCCESS” 则已经运行
+              显示 “FAILED”  则没有运行
+</code></pre><h3 id="5-MySQL服务一些其他命令"><a href="#5-MySQL服务一些其他命令" class="headerlink" title="5. MySQL服务一些其他命令"></a>5. MySQL服务一些其他命令</h3><pre><code>a、察看mysql是否在自动启动列表：  #　/sbin/chkconfig –list
+b、添加mysql到系统自启动服务组：  #　/sbin/chkconfig　– add　mysql
+c、把mysql从启动服务组中删除：    #　/sbin/chkconfig　– del　mysql  
+d、停止mysql服务：                #  service mysql stop
+e、脚本启动mysql服务：            #  /etc/rc.d/init.d/mysqld start  
+f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
+</code></pre><h3 id="6、安装完成之后为MySQL设置root密码。"><a href="#6、安装完成之后为MySQL设置root密码。" class="headerlink" title="6、安装完成之后为MySQL设置root密码。"></a>6、安装完成之后为MySQL设置root密码。</h3><p>命令如下：</p>
+<pre><code># mysql -u root -p
+</code></pre><p>会提示输入密码，初始root密码保存在’/root/.mysql_secret’文件中<br>接着输入</p>
+<pre><code>mysql&gt;SET PASSWORD = PASSWORD(&apos;123456&apos;);
+</code></pre><h3 id="7、mysql安装目录说明"><a href="#7、mysql安装目录说明" class="headerlink" title="7、mysql安装目录说明"></a>7、mysql安装目录说明</h3><pre><code>/var/lib/mysql          数据库文件
+/usr/share/mysql        命令及配置文件
+/usr/bin                (mysqladmin、mysqldump等命令)
+</code></pre><h3 id="8、linux-下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式"><a href="#8、linux-下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式" class="headerlink" title="8、linux 下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式"></a>8、linux 下安装的mysql表名是区分大小写的，如果要不区分大小写，可以采用以下方式</h3><p>   1、拷贝 /usr/share/mysql/my-huge.cnf到/etc/my.cnf（如果已有该文件可以直接修改）</p>
+<pre><code>    命令如下：
+
+# cp /usr/share/mysql/my-huge.cnf  /etc/my.cnf
+</code></pre><p>   2、修改my.cnf 文件<br>        在 [mysqld]下增加<br>        lower_case_table_names=1 #表名全部为小写，避免出现大小写敏感</p>
+<p>   3、重启mysql</p>
+<pre><code># service mysql restart
+</code></pre><h3 id="9-可选-、为连接MySQL的主机分配权限："><a href="#9-可选-、为连接MySQL的主机分配权限：" class="headerlink" title="9(可选)、为连接MySQL的主机分配权限："></a>9(可选)、为连接MySQL的主机分配权限：</h3><p>   命令如下：</p>
+<pre><code>&gt;mysql GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO root@xxx.xxx.x.xxidentified by &apos;123456&apos;; //xxx.xxx.x.xx是你的IP
+</code></pre><h3 id="10、开机启动MySQL"><a href="#10、开机启动MySQL" class="headerlink" title="10、开机启动MySQL"></a>10、开机启动MySQL</h3><p>用root用户登录终端</p>
+<p>查看是否已经有MySQL的服务</p>
+<pre><code># chkconfig --list
+</code></pre><p>如果没有MySQL(如果有请忽略这个步骤)</p>
+<pre><code># chkconfig --add mysql
+</code></pre><p>设置开机启动mysql服务</p>
+<pre><code># chkconfig mysql on
+</code></pre><h3 id="11-可选-、更改MySQL默认字符集-默认字符集和操作系统字符集一样，所以不需要设置"><a href="#11-可选-、更改MySQL默认字符集-默认字符集和操作系统字符集一样，所以不需要设置" class="headerlink" title="11(可选)、更改MySQL默认字符集 (默认字符集和操作系统字符集一样，所以不需要设置)"></a>11(可选)、更改MySQL默认字符集 (默认字符集和操作系统字符集一样，所以不需要设置)</h3><p>查看mysql字符集：</p>
+<pre><code>mysql&gt; show variables like &apos;character_set_%&apos;;
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/03/12/maven-eclipse/" itemprop="url">
                   maven 不能设置为web3.0人解决方法
                 </a>
@@ -591,7 +1074,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
