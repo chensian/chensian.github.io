@@ -304,8 +304,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/02/17/scrapy-five-module/" itemprop="url">
-                  Scrapy五大组件介绍
+                <a class="post-title-link" href="/2016/04/11/spring-transactional/" itemprop="url">
+                  Spring @Transactional配置
                 </a>
               
             
@@ -318,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-17T18:27:11+08:00" content="2016 年 02 月 17 日">
-              2016 年 02 月 17 日
+            <time itemprop="dateCreated" datetime="2016-04-11T13:38:47+08:00" content="2016 年 04 月 11 日">
+              2016 年 04 月 11 日
             </time>
           </span>
 
@@ -332,8 +332,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/爬虫/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫</span>
+                  <a href="/categories/JavaEE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaEE</span>
                   </a>
                 </span>
 
@@ -344,8 +344,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/爬虫/Scrapy/" itemprop="url" rel="index">
-                    <span itemprop="name">Scrapy</span>
+                  <a href="/categories/JavaEE/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -360,8 +360,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/02/17/scrapy-five-module/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/17/scrapy-five-module/" itemprop="commentsCount"></span>
+                <a href="/2016/04/11/spring-transactional/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/11/spring-transactional/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2016/02/17/scrapy-five-module/" class="leancloud_visitors" data-flag-title="Scrapy五大组件介绍">
+             <span id="/2016/04/11/spring-transactional/" class="leancloud_visitors" data-flag-title="Spring @Transactional配置">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -395,20 +395,17 @@
       
         
           
-            <p>Scrapy框架主要由五大组件组成，它们分别是调度器(Scheduler)、下载器(Downloader)、爬虫（Spider）和实体管道(Item Pipeline)、Scrapy引擎(Scrapy Engine)。下面我们分别介绍各个组件的作用。</p>
-<h3 id="调度器"><a href="#调度器" class="headerlink" title="调度器"></a>调度器</h3><p>调度器，说白了可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列，由它来决定下一个要抓取的网址是什么，同时去除重复的网址（不做无用功）。用户可以跟据自己的需求定制调度器。</p>
-<h3 id="下载器"><a href="#下载器" class="headerlink" title="下载器"></a>下载器</h3><p>下载器，是所有组件中负担最大的，它用于高速地下载网络上的资源。Scrapy的下载器代码不会太复杂，但效率高，主要的原因是Scrapy下载器是建立在twisted这个高效的异步模型上的(其实整个框架都在建立在这个模型上的)。</p>
-<h3 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h3><p>爬虫，是用户最关心的部份。用户定制自己的爬虫，用于从特定的网页中提取自己需要的信息，即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy继续抓取下一个页面。</p>
-<h3 id="实体管道"><a href="#实体管道" class="headerlink" title="实体管道"></a>实体管道</h3><p>实体管道，用于处理爬虫提取的实体。主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。</p>
-<h3 id="Scrapy引擎"><a href="#Scrapy引擎" class="headerlink" title="Scrapy引擎"></a>Scrapy引擎</h3><p>Scrapy引擎是整个框架的核心。它用来控制调试器、下载器、爬虫。实际上，引擎相当于计算机的CPU,它控制着整个流程。</p>
-<h2 id="Scrapy运行流程"><a href="#Scrapy运行流程" class="headerlink" title="Scrapy运行流程"></a>Scrapy运行流程</h2><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fcyi9y62cxj30jg0dqmzl" alt=""></p>
-<ol>
-<li>首先，引擎从调度器中取出一个链接(URL)用于接下来的抓取</li>
-<li>引擎把URL封装成一个请求(Request)传给下载器，下载器把资源下载下来，并封装成应答包(Response)</li>
-<li>然后，爬虫解析Response</li>
-<li>若是解析出实体（Item）,则交给实体管道进行进一步的处理。</li>
-<li>若是解析出的是链接（URL）,则把URL交给Scheduler等待抓取</li>
-</ol>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/04/11/spring-transactional/" target="_blank" rel="external">https://chensian.github.io/2016/04/11/spring-transactional/</a> ）</p>
+<p>在service类前加上@Transactional，声明这个service所有方法需要事务管理。每一个业务方法开始时都会打开一个事务。</p>
+<p>Spring默认情况下会对运行期例外(RunTimeException)进行事务回滚。这个例外是unchecked<br>如果遇到checked意外就不回滚。<br>如何改变默认规则：</p>
+<p>1 让checked例外也回滚：在整个方法前加上<br>@Transactional(rollbackFor=Exception.class)</p>
+<p>2 让unchecked例外不回滚：<br>@Transactional(notRollbackFor=RunTimeException.class)</p>
+<p>3 不需要事务管理的(只查询的)方法：<br>@Transactional(propagation=Propagation.NOT_SUPPORTED)</p>
+<p>注意： 如果异常被try｛｝catch｛｝了，事务就不回滚了，如果想让事务回滚必须再往外抛try｛｝catch｛throw Exception｝。</p>
+<p>@Transactional设置：<br>propagation：事务传播性设置，Propagation枚举类型。Spring支持的事务传播属性包括7种：<br>    PROPAGATION_MANDATORY：方法必须在事务中执行，否则抛出异常。<br>    PROPAGATION_NESTED：使方法运行在嵌套事务中，否则和PROPAGATION_REQUIRED一样。<br>    PROPAGATION_NEVER ：当前方法永远不在事务中运行，否则抛出异常。<br>    PROPAGATION_NOT_SUPPORTED：定义为当前事务不支持的方法，在该方法执行期间正在运行的事务会被暂停<br>    PROPAGATION_REQUIRED：当前的方法必须运行在事务中，如果没有事务就新建一个事务。新事务和方法一起开始，随着方法返回或者抛出异常时终止。<br>    PROPAGATION_REQUIRED_NEW ：当前方法必须新建一个事务，如果当前的事务正在运行则暂停。<br>    PROPAGATION_SUPPORTS ：规定当前方法支持当前事务，但是如果没有事务在运行就使用非事务方法执行。<br>isolation：事务隔离性级别设置，Isolation枚举类型<br>    ISOLATION_DEFAULT ：使用数据库默认的隔离级别<br>    ISOLATION_COMMITTED：允许其他事务已经提交的更新（防止脏读取）<br>    ISOLATION_READ_UNCOMMITTED：允许读取其他事务未提交的更新，会导致三个缺陷发生。执行速度最快<br>    ISOLATION_REPEATABLE_READ ：除非事务自身更改了数据，否则事务多次读取的数据相同（防止脏数据，多次重复读取）<br>    ISOLATION_SERIALIZABLE：隔离级别最高，可以防止三个缺陷，但是速度最慢，影响性能。</p>
+<p>readOnly：读写性事务，只读性事务，布尔型<br>    对数据库的操作中，查询是使用最频繁的操作，每次执行查询时都要从数据库中重新读取数据，有时多次读取的数据都是相同的，这样的数据操作不仅浪费了系统资源，还影响了系统速度。对访问量大的程序来说，节省这部分资源可以大大提    升系统速度。<br>   将事务声明为只读的，那么数据库可以根据事务的特性优化事务的读取操作</p>
+<p>timeout：超时时间，单位秒<br>事务可能因为某种原因很长时间没有反应，这期间可能锁定了数据库表，影响性能。设置超时时间，如果超过该时间，事务自动回滚。</p>
+<p>rollbackFor：一组异常类的实例，遇到时必须进行回滚<br>rollbackForClassname：一组异常类的名字，遇到时必须进行回滚<br>noRollbackFor：一组异常类的实例，遇到时必须不回滚<br>noRollbackForClassname：一组异常类的名字，遇到时必须不回滚</p>
 
           
         
@@ -537,7 +534,8 @@
       
         
           
-            <h3 id="Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file-var-lib-mysql-iZ94mck3376Z-pid"><a href="#Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file-var-lib-mysql-iZ94mck3376Z-pid" class="headerlink" title="Starting MySQL. ERROR! The server quit without updating PID file (/var/lib/mysql/iZ94mck3376Z.pid)."></a>Starting MySQL. ERROR! The server quit without updating PID file (/var/lib/mysql/iZ94mck3376Z.pid).</h3><pre><code>[root@snsgou mysql]# service mysql restart
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2015/09/07/linux-mysql-error/" target="_blank" rel="external">https://chensian.github.io/2015/09/07/linux-mysql-error/</a> ）</p>
+<h3 id="Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file-var-lib-mysql-iZ94mck3376Z-pid"><a href="#Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file-var-lib-mysql-iZ94mck3376Z-pid" class="headerlink" title="Starting MySQL. ERROR! The server quit without updating PID file (/var/lib/mysql/iZ94mck3376Z.pid)."></a>Starting MySQL. ERROR! The server quit without updating PID file (/var/lib/mysql/iZ94mck3376Z.pid).</h3><pre><code>[root@snsgou mysql]# service mysql restart
 MySQL server PID file could not be found![失败]
 Starting MySQL...The server quit without updating PID file (/usr/local/mysql/data/snsgou.pid).[失败]
 </code></pre><p>Google了下 ，问题可能的原因有多种，具体什么原因最好的办法是先查看下错误日志：</p>
@@ -688,7 +686,8 @@ Starting MySQL...The server quit without updating PID file (/usr/local/mysql/dat
       
         
           
-            <h2 id="HQL-Hibernate查询语言"><a href="#HQL-Hibernate查询语言" class="headerlink" title="HQL: Hibernate查询语言"></a>HQL: Hibernate查询语言</h2><p>Hibernate配备了一种非常强大的查询语言，这种语言看上去很像SQL。但是不要被语法结构 上的相似所迷惑，HQL是非常有意识的被设计为完全面向对象的查询，它可以理解如继承、多态 和关联之类的概念。</p>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2015/09/04/hibernate-language/" target="_blank" rel="external">https://chensian.github.io/2015/09/04/hibernate-language/</a> ）</p>
+<h2 id="HQL-Hibernate查询语言"><a href="#HQL-Hibernate查询语言" class="headerlink" title="HQL: Hibernate查询语言"></a>HQL: Hibernate查询语言</h2><p>Hibernate配备了一种非常强大的查询语言，这种语言看上去很像SQL。但是不要被语法结构 上的相似所迷惑，HQL是非常有意识的被设计为完全面向对象的查询，它可以理解如继承、多态 和关联之类的概念。</p>
 <p>Hibernate配备了一种非常强大的查询语言，这种语言看上去很像SQL。但是不要被语法结构 上的相似所迷惑，HQL是非常有意识的被设计为完全面向对象的查询，它可以理解如继承、多态 和关联之类的概念。</p>
 <h3 id="1-大小写敏感性问题"><a href="#1-大小写敏感性问题" class="headerlink" title="1. 大小写敏感性问题"></a>1. 大小写敏感性问题</h3><p>除了Java类与属性的名称外，查询语句对大小写并不敏感。 所以 SeLeCT 与 sELEct 以及 SELECT 是相同的，但是 org.hibernate.eg.FOO 并不等价于org.hibernate.eg.Foo 并且 foo.barSet 也不等价于 foo.BARSET。<br>本手册中的HQL关键字将使用小写字母. 很多用户发现使用完全大写的关键字会使查询语句 的可读性更强, 但我们发现，当把查询语句嵌入到Java语句中的时候使用大写关键字比较难看。</p>
 <h3 id="2-from子句"><a href="#2-from子句" class="headerlink" title="2. from子句"></a>2. from子句</h3><p>Hibernate中最简单的查询语句的形式如下：</p>
@@ -1100,7 +1099,7 @@ Collection counts = s.filter( collection, &quot;select this.type, count(this) gr
               
                 
                 <a class="post-title-link" href="/2015/08/29/springmvc4-date-json/" itemprop="url">
-                  springmvc4-date-json
+                  springmvc4 date 日期类型处理 json
                 </a>
               
             
@@ -1166,7 +1165,7 @@ Collection counts = s.filter( collection, &quot;select this.type, count(this) gr
 
           
           
-             <span id="/2015/08/29/springmvc4-date-json/" class="leancloud_visitors" data-flag-title="springmvc4-date-json">
+             <span id="/2015/08/29/springmvc4-date-json/" class="leancloud_visitors" data-flag-title="springmvc4 date 日期类型处理 json">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1190,7 +1189,8 @@ Collection counts = s.filter( collection, &quot;select this.type, count(this) gr
       
         
           
-            <h3 id="1、方法一：全局处理"><a href="#1、方法一：全局处理" class="headerlink" title="1、方法一：全局处理"></a>1、方法一：全局处理</h3><pre><code>&lt;mvc:annotation-driven&gt;  
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/04/11/springmvc4-date-json/" target="_blank" rel="external">https://chensian.github.io/2016/04/11/springmvc4-date-json/</a> ）</p>
+<h3 id="1、方法一：全局处理"><a href="#1、方法一：全局处理" class="headerlink" title="1、方法一：全局处理"></a>1、方法一：全局处理</h3><pre><code>&lt;mvc:annotation-driven&gt;  
     &lt;!-- 处理responseBody 里面日期类型 --&gt;  
         &lt;mvc:message-converters&gt;  
             &lt;bean class=&quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&quot;&gt;  
@@ -1339,7 +1339,8 @@ Collection counts = s.filter( collection, &quot;select this.type, count(this) gr
       
         
           
-            <p>我们通常对一个Json串和java对象进行互转时，经常会有选择性的过滤掉一些属性值，而json-lib包中的JsonConfig为我们提供了这种 功能，具体实现方法有以下几种。(1)建立JsonConfig实例，并配置属性排除列表,(2)用属性过滤器,(3)写一个自定义的 JsonBeanProcessor.</p>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2015/08/29/Json-jsonconfig/" target="_blank" rel="external">https://chensian.github.io/2015/08/29/Json-jsonconfig/</a> ）</p>
+<p>我们通常对一个Json串和java对象进行互转时，经常会有选择性的过滤掉一些属性值，而json-lib包中的JsonConfig为我们提供了这种 功能，具体实现方法有以下几种。(1)建立JsonConfig实例，并配置属性排除列表,(2)用属性过滤器,(3)写一个自定义的 JsonBeanProcessor.</p>
 <h3 id="1-实现JSONString接口的方法"><a href="#1-实现JSONString接口的方法" class="headerlink" title="1. 实现JSONString接口的方法"></a>1. 实现JSONString接口的方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class Person implements JSONString &#123;  </div><div class="line">private String name;  </div><div class="line">private String lastname;  </div><div class="line">private Address address;  </div><div class="line"></div><div class="line">// getters &amp; setters  </div><div class="line"></div><div class="line">public String toJSONString() &#123;</div><div class="line">return &quot;&#123;name:&apos;&quot;+name+&quot;&apos;,lastname:&apos;&quot;+lastname+&quot;&apos;&#125;&quot;;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="2-第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除"><a href="#2-第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除" class="headerlink" title="2.第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除"></a>2.第二种方法通过jsonconfig实例，对包含和需要排除的属性进行方便的添加或删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class Person &#123;  </div><div class="line">    private String name;  </div><div class="line">    private String lastname;  </div><div class="line">    private Address address;  </div><div class="line">    // getters &amp; setters // </div><div class="line">&#125;  </div><div class="line"></div><div class="line">JsonConfig jsonConfig = new JsonConfig();  </div><div class="line">jsonConfig.setExclusions( new String[]&#123;&quot;address&quot;&#125;);  </div><div class="line">Person bean = new Person(&quot;jack&quot;,&quot;li&quot;);  </div><div class="line">JSON json = JSONSerializer.toJSON(bean, jsonConfig);</div></pre></td></tr></table></figure>
 <h3 id="3-使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象"><a href="#3-使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象" class="headerlink" title="3. 使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象"></a>3. 使用propertyFilter可以允许同时对需要排除的属性和类进行控制，这种控制还可以是双向的，也可以应用到json字符串到java对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class Person &#123;  </div><div class="line">private String name;  </div><div class="line">private String lastname;  </div><div class="line">private Address address;  </div><div class="line"></div><div class="line">// getters &amp; setters  </div><div class="line">&#125;  </div><div class="line"></div><div class="line">JsonConfig jsonConfig = new JsonConfig();  </div><div class="line">jsonConfig.setJsonPropertyFilter( new PropertyFilter()&#123;  </div><div class="line"></div><div class="line">public boolean apply(Object source/* 属性的拥有者 */ , String name /*属性名字*/ , Object value/* 属性值 */ )&#123;  </div><div class="line">// return true to skip name  </div><div class="line">return source instanceof Person &amp;&amp; name.equals(&quot;address&quot;);  </div><div class="line">&#125;  </div><div class="line">&#125;);  </div><div class="line">Person bean = new Person(&quot;jack&quot;,&quot;li&quot;); </div><div class="line">JSON json = JSONSerializer.toJSON( bean, jsonConfig )</div></pre></td></tr></table></figure>
@@ -1483,7 +1484,8 @@ Collection counts = s.filter( collection, &quot;select this.type, count(this) gr
       
         
           
-            <h1 id="Centos6-4-用rpm方式安装MySql5-6"><a href="#Centos6-4-用rpm方式安装MySql5-6" class="headerlink" title="Centos6.4 用rpm方式安装MySql5.6"></a>Centos6.4 用rpm方式安装MySql5.6</h1><h3 id="1-查看系统是否安装了MySQL"><a href="#1-查看系统是否安装了MySQL" class="headerlink" title="1. 查看系统是否安装了MySQL"></a>1. 查看系统是否安装了MySQL</h3><p>使用命令：</p>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2015/07/26/centos-install-mysql/" target="_blank" rel="external">https://chensian.github.io/2015/07/26/centos-install-mysql/</a> ）</p>
+<h1 id="Centos6-4-用rpm方式安装MySql5-6"><a href="#Centos6-4-用rpm方式安装MySql5-6" class="headerlink" title="Centos6.4 用rpm方式安装MySql5.6"></a>Centos6.4 用rpm方式安装MySql5.6</h1><h3 id="1-查看系统是否安装了MySQL"><a href="#1-查看系统是否安装了MySQL" class="headerlink" title="1. 查看系统是否安装了MySQL"></a>1. 查看系统是否安装了MySQL</h3><p>使用命令：</p>
 <pre><code>#rpm -qa | grep mysql 
 </code></pre><h3 id="2-卸载已安装的MySQL"><a href="#2-卸载已安装的MySQL" class="headerlink" title="2. 卸载已安装的MySQL"></a>2. 卸载已安装的MySQL</h3><p>卸载mysql命令如下： </p>
 <pre><code>#rpm -e --nodeps  mysql-libs-5.1.61-4.el6.x86_64
@@ -1877,7 +1879,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1886,7 +1888,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
