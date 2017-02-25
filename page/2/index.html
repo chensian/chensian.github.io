@@ -304,6 +304,453 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/22/aliyun-svn/" itemprop="url">
+                  阿里云服务器安装svn服务器端
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-22T23:07:59+08:00" content="2016 年 08 月 22 日">
+              2016 年 08 月 22 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发工具/" itemprop="url" rel="index">
+                    <span itemprop="name">开发工具</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发工具/SVN/" itemprop="url" rel="index">
+                    <span itemprop="name">SVN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/22/aliyun-svn/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/22/aliyun-svn/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/22/aliyun-svn/" class="leancloud_visitors" data-flag-title="阿里云服务器安装svn服务器端">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/08/22/aliyun-svn/" target="_blank" rel="external">https://chensian.github.io/2016/08/22/aliyun-svn/</a> ）</p>
+<h4 id="1-安装svn服务器端"><a href="#1-安装svn服务器端" class="headerlink" title="1.安装svn服务器端"></a>1.安装svn服务器端</h4><pre><code>yum install subversion      
+</code></pre><p>从镜像下载安装svn服务器端<br>中间会提示是否ok，输入y，确认<br>安装成功提示：…..complete！</p>
+<p>依次执行如下命令：</p>
+<pre><code>cd /usr/local/              //进入目录，准备创建svn目录
+mkdir svnRepo                   //创建一个svn目录
+chmod -R 777 svnRepo            //修改目录权限为777
+svnadmin create /usr/local/svnRepo/first  //创建一个svn版本仓库first(first可以随便起名字)
+</code></pre><p>cd first/conf               //进入first版本仓库下的配置文件目录</p>
+<h4 id="2-下面要修改这个目录下的三个配置文件"><a href="#2-下面要修改这个目录下的三个配置文件" class="headerlink" title="2.下面要修改这个目录下的三个配置文件"></a>2.下面要修改这个目录下的三个配置文件</h4><p>(1)vi svnserve.conf    //配置版本库信息和用户文件和用户密码文件的路径、版本库路径<br>把</p>
+<pre><code># anon-access = read
+# auth-access = write
+# password-db = passwd
+</code></pre><p>//这四行，前面的#号和空格去掉，变成</p>
+<pre><code>anon-access = none      //改成none
+auth-access = write
+password-db = passwd
+
+realm = first           //改成自己的版本库
+</code></pre><p>保存退出</p>
+<p>(2)vi authz     //文件,创建svn组和组用户的权限</p>
+<pre><code>[groups]
+first = ddl,shl //创建一个first的组，并制定两个用户ddl和shl
+[/]             //制定根目录下的权限
+@first = rw     //first组用户权限为读写
+* = r           //其他用户只有读权限
+</code></pre><p>保存退出</p>
+<p>(3) vi passwd   //创建或修改用户密码</p>
+<pre><code>[users]
+ddl = 123456    //用户名为gep的用户的密码为123456
+shl = 123456    //。。。
+</code></pre><p>保存退出</p>
+<h4 id="3-然后要设置自启动"><a href="#3-然后要设置自启动" class="headerlink" title="3.然后要设置自启动"></a>3.然后要设置自启动</h4><pre><code>vi /etc/rc.local    
+</code></pre><p>打开自启动文件<br>文件内容如下</p>
+<pre><code>#!/bin/sh
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don&apos;t
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+</code></pre><p>添加下面一行</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first
+</code></pre><p>保存退出</p>
+<pre><code>ps aux |grep &apos;svn&apos;  查找所有svn启动的进程
+</code></pre><p>杀死 然后启动svn</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first 启动svn(可以把这个放到/etc/local/rc.local文件中，实现开机自启动)
+</code></pre><h4 id="4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件"><a href="#4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件" class="headerlink" title="4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件"></a>4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件</h4><p>以配置 first 版本库为例</p>
+<pre><code>vi authz
+
+[groups]
+company = user1,user2
+[first:/]             //指定版本库跟目录下的权限
+@company = rw     //company组用户权限为读写
+* = r           //其他用户只有读权限
+</code></pre><p>保存退出</p>
+<p>vi passwd 设置组中用户的账号和密码</p>
+<pre><code>[users]
+user1  = 123456
+user2 = 123456
+</code></pre><h4 id="5-客户端访问"><a href="#5-客户端访问" class="headerlink" title="5.客户端访问"></a>5.客户端访问</h4><p>假设客户端使用tortoiseSVN<br>打开资源库浏览器输入地址, svn://你的svn服务器ip:3690<br>输入用户名ddl 密码12345<br>因为没有网资源库里放文件所以需要你用客户端右键【create forder】，然后【add forder】</p>
+<h4 id="6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库"><a href="#6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库" class="headerlink" title="6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库"></a>6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库</h4><p>1：单版本库起动 </p>
+<pre><code>svnserve -d -r /usr/local/svnRepo/first
+</code></pre><p>2：多版本库起动</p>
+<pre><code>svnserve -d -r /usr/local/svnRepo
+</code></pre><p>区别在于起动svn时候的命令中的启动参数-r指定的目录。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/24/chat-udp/" itemprop="url">
+                  基于UDP协议实现的Java聊天室
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-24T12:40:18+08:00" content="2016 年 05 月 24 日">
+              2016 年 05 月 24 日
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/24/chat-udp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/24/chat-udp/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/24/chat-udp/" class="leancloud_visitors" data-flag-title="基于UDP协议实现的Java聊天室">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/05/24/chat-udp/" target="_blank" rel="external">https://chensian.github.io/2016/05/24/chat-udp/</a> ）</p>
+<p>Github ：<a href="https://github.com/chensian/Chat-UDP" target="_blank" rel="external">https://github.com/chensian/Chat-UDP</a></p>
+<h4 id="项目环境"><a href="#项目环境" class="headerlink" title="项目环境"></a>项目环境</h4><p>eclipse EE</p>
+<p>JDK1.8 + Mysql</p>
+<h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>本聊天室系统是采用C/S架构设计的JAVA语言编写的聊天系统。该聊天系统具有完整的会话功能，服务器具有侦听服务，转发聊天信息，响应用户下线，发送系统消息的功能。客户端具有登陆，断开连接，发送聊天信息，接收聊天信息的功能。该聊天室由服务端和客户端组成，主要用到Socket通信的网络应用。  </p>
+<h4 id="模块分解"><a href="#模块分解" class="headerlink" title="模块分解"></a>模块分解</h4><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2kzfjtruj30cy06uaa3" alt=""></p>
+<h4 id="功能需求分析"><a href="#功能需求分析" class="headerlink" title="功能需求分析"></a>功能需求分析</h4><h5 id="聊天室客户端需求分析"><a href="#聊天室客户端需求分析" class="headerlink" title="聊天室客户端需求分析"></a>聊天室客户端需求分析</h5><p>（1）基本功能即可以即时通讯</p>
+<p>（2）可以查询在线用户基本信息</p>
+<p>（3）可以进行群聊</p>
+<p>（4）可以进行私聊</p>
+<p>（5）可以显示在线用户列表</p>
+<p>（6）可以离线接收信息</p>
+<h5 id="聊天室服务器端需求分析"><a href="#聊天室服务器端需求分析" class="headerlink" title="聊天室服务器端需求分析"></a>聊天室服务器端需求分析</h5><p>（1）可以显示在线用户基本信</p>
+<p>（2）可以显示用户发送的聊天信息的基本情况（信息内容）</p>
+<h4 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h4><h5 id="UDP协议的几个特性"><a href="#UDP协议的几个特性" class="headerlink" title="UDP协议的几个特性"></a>UDP协议的几个特性</h5><p>（1）UDP是一个无连接协议，传输数据之前源端和终端不建立连接，当UDP它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上。在发送端，UDP传送数据的速度仅仅是受应用程序生成数据的速度、计算机的能力和传输带宽的限制；在接收端，UDP把每个消息段放在队列中，应用程序每次从队列中读一个消息段。</p>
+<p>（2） 由于传输数据不建立连接，因此也就不需要维护连接状态，包括收发状态等，因此一台服务机可同时向多个客户机传输相同的消息。</p>
+<p>（3） UDP信息包的标题很短，只有8个字节，相对于TCP的20个字节信息包的额外开销很小。</p>
+<p>（4） 吞吐量不受拥挤控制算法的调节，只受应用软件生成数据的速率、传输带宽、源端和终端主机性能的限制。 </p>
+<p>（5）UDP使用尽最大努力交付，即不保证可靠交付，因此主机不需要维持复杂的链接状态表（这里面有许多参数）。 </p>
+<p>（6）UDP是面向报文的。发送方的UDP对应用程序交下来的报文，在添加首部后就向下交付给IP层。既不拆分，也不合并，而是保留这些报文的边界，因此，应用程序需要选择合适的报文大小。</p>
+<h5 id="TCP与UDP比较"><a href="#TCP与UDP比较" class="headerlink" title="TCP与UDP比较"></a>TCP与UDP比较</h5><p>（1）UDP是无状态的，该协议使得数据传输的速度得到大幅度的提高。视频聊天语音聊天基本都是用UPD协议。 TCP接到客户端请求后马上做一个线程，将连接对象传递进去进行处理！但是UDP的话是没有连接对象的，只要消息包的概念！<br>（2）TCP是面向连接的，有比较高的可靠性，一些要求比较高的服务一般使用这个协议，如FTP、Telnet、SMTP、HTTP、POP3等，而UDP是面向无连接的，使用这个协议的常见服务有DNS、SNMP、QQ等。</p>
+<h4 id="Java-UDP-技术"><a href="#Java-UDP-技术" class="headerlink" title="Java UDP 技术"></a>Java UDP 技术</h4><h5 id="DatagramPacket类说明"><a href="#DatagramPacket类说明" class="headerlink" title="DatagramPacket类说明"></a>DatagramPacket类说明</h5><p>该类表示一个数据报包。该数据报包用来实现一个无连接包的传送服务。它是进行数据报通信的基本单位。包含了IP地址、端口号和需要传输的数据等。在发送和接收数据报时，要创建DatagramPakcet类对象作为数据的载体。</p>
+<h6 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h6><p>（1）public DatagramPacket(byte ibuf[],int ilength)</p>
+<p>功能：创建一个用于接收数据报的DatagramPacket类对象。</p>
+<p>参数：</p>
+<p> buf：存储数据报的缓冲区。在数据报通信中，发送和接收一个数据报，都需提供一个缓冲区，用来安置发送和接收到的数据报。</p>
+<p>length：接收数据报的长度，必须小于等于ibuf.length。</p>
+<p>（2）public DatagramPacket(byte ibuf[],int ilength,InetAddress iaddr,int iport)</p>
+<p>功能：创建一个用于发送数据报的DatagramPacket类对象。</p>
+<p>参数：</p>
+<p>buf：存储数据报的缓冲区。</p>
+<p>length：发送数据报的长度，必须小于等于ibuf.length。</p>
+<p>addr：数据报要发送到的目的IP地址。</p>
+<p>port：数据报要发送到的目的地址的端口号。</p>
+<h6 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h6><p>（1）public synchronized InetAddress getAddress()</p>
+<p>功能：返回存放在接收或发送的数据报中的IP址。</p>
+<p>（2）public synchronized int getPort()</p>
+<p>功能：返回存放在接收或发送的数据报中的端口号。</p>
+<p>（3）public synchronized byte[] getData()</p>
+<p>功能：返回存放在数据报中的数据。</p>
+<p>（4）public synchronized int getLength()</p>
+<p>功能：返回数据报中数据的长度。</p>
+<p>（5）public synchronized void setAddress(InetAddress addr)</p>
+<p>功能：设置发送数据报的目的地址为iaddr。</p>
+<p>（6）public synchronized void setPort(int port)</p>
+<p>功能：设置发送数据报的目的地址的端口号为port。</p>
+<p>（7）public synchronized void setData(byte ibuf[])</p>
+<p>功能：设置数据报中的数据内容为字节数组ibuf的数据。</p>
+<p>（8）public synchronized void setLength(int ilength)</p>
+<p>功能：设置数据报中的数据的长度为ilength。</p>
+<h5 id="DatagramSocket类说明"><a href="#DatagramSocket类说明" class="headerlink" title="DatagramSocket类说明"></a>DatagramSocket类说明</h5><p>该类表示用来发送和接收数据报包的套接字（Socket）。要收发DatagramPacket，必须打开一个数据报套接字（Datagram Socket）。</p>
+<p>在Java中，数据报套接字通过DatagramSocket类来创建和访问。</p>
+<h6 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h6><p>（1）public DatagramSocket() throws SocketException</p>
+<p>功能：创建用于数据报通信的socket对象，由本地主机自动指定的一个可用的端口号。</p>
+<p>（2）public DatagramSocket(int port) throws SocketException</p>
+<p>功能：创建用于数据报通信的socket对象，并且把它绑定到本地主机指定的端口port。</p>
+<p>（3）public DatagramSocket(int port,InetAddress addr) throws SocketException</p>
+<p>功能：创建用于数据报通信的socket对象，并绑定到指定的本地地址addr的指定端口port。端口号port必须为0和65535之间的一个。</p>
+<h6 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h6><p>（1）public void send(DatagramPacket p) throws IOException</p>
+<p>功能：从此socket发送数据报包。</p>
+<p>（2）public synchronized void receive(DatagramPacket p) throws IOException</p>
+<p>功能：从网络接收一个UDP数据报包。存储在DatagramPacket类对象p中。该数据报包还包含发送方的IP 地址和发送方主机的端口号。</p>
+<p>（3）public InetAddress getLocalAddress()</p>
+<p>功能：获取该socket绑定的本地地址。</p>
+<p>（4）public int getLocalPort()</p>
+<p>功能：获取该socket绑定的本地主机的端口号。</p>
+<p>（5）public void close()</p>
+<p>功能：释放该数据报socket所占用的端口。</p>
+<h4 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h4><h5 id="服务器端介绍"><a href="#服务器端介绍" class="headerlink" title="服务器端介绍"></a>服务器端介绍</h5><p>1)newsPush(String, DatagramPacket)</p>
+<p>说明：登录时，离线消息推送。</p>
+<p>2)sendAll(Message, DatagramPacket)</p>
+<p>说明：群发消息</p>
+<p>3)sendONE(Message, DatagramPacket)</p>
+<p>说明：私聊私发消息</p>
+<p>4)register(User, DatagramPacket)</p>
+<p>说明：注册事务处理</p>
+<p>5)login(User, DatagramPacket)</p>
+<p>说明：登录事务处理</p>
+<h5 id="客户端介绍"><a href="#客户端介绍" class="headerlink" title="客户端介绍"></a>客户端介绍</h5><p>1)登录失败：用户名或者密码错误，返回200</p>
+<p>2)登录成功：服务器返回211     </p>
+<p>3)重复登录，服务器对此ID的原登录客户端返回201</p>
+<p>4)登录时，对密码传送进行加密(采用md5计算摘要法)，发送换算好后的password传输至服务器。</p>
+<p>5)类型与长度：</p>
+<p>用户名：固定10位的数字（注册人的学号）组成。</p>
+<p>密码：6~8位，仅接受由数字或字母组成的密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">（用户名和密码格式设置错误了，服务器将会返回100）</div><div class="line">（用户名重复，服务器将会返回101）</div><div class="line">（注册成功，服务器返回111）</div></pre></td></tr></table></figure>
+<h5 id="聊天室"><a href="#聊天室" class="headerlink" title="聊天室"></a>聊天室</h5><p>1)clearMessage()</p>
+<p> 说明：清空聊天窗口记录</p>
+<p>2)exit()</p>
+<p> 说明：退出聊天室</p>
+<p>3)sendMessage()</p>
+<p> 说明：发送消息，可以选择群聊或私聊</p>
+<p>4)changeUser()</p>
+<p> 说明：切换聊天好友。</p>
+<h5 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h5><h6 id="java对象与字节数组相互转换"><a href="#java对象与字节数组相互转换" class="headerlink" title="java对象与字节数组相互转换"></a>java对象与字节数组相互转换</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">public static byte[] ObjectToByte(java.lang.Object obj) &#123;</div><div class="line">        byte[] bytes = null;</div><div class="line">        try &#123;</div><div class="line">            // object to bytearray</div><div class="line">            ByteArrayOutputStream bo = new ByteArrayOutputStream();</div><div class="line">            ObjectOutputStream oo = new ObjectOutputStream(bo);</div><div class="line">            oo.writeObject(obj);</div><div class="line">            bytes = bo.toByteArray();</div><div class="line">            bo.close();</div><div class="line">            oo.close();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            System.out.println(&quot;translation&quot; + e.getMessage());</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return bytes;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static Object ByteToObject(DatagramPacket inPacket) &#123;</div><div class="line">        byte[] bytes = inPacket.getData();</div><div class="line">        Object obj = null;</div><div class="line">        try &#123;</div><div class="line">            // bytearray to object</div><div class="line">            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);</div><div class="line">            ObjectInputStream oi = new ObjectInputStream(bi);</div><div class="line">            obj = oi.readObject();</div><div class="line">            bi.close();</div><div class="line">            oi.close();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            System.out.println(&quot;translation&quot; + e.getMessage());</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return obj;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h5 id="结果状态码"><a href="#结果状态码" class="headerlink" title="结果状态码"></a>结果状态码</h5><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ler10h3j30f50anjro" alt=""></p>
+<h5 id="运行界面"><a href="#运行界面" class="headerlink" title="运行界面"></a>运行界面</h5><h6 id="注册界面"><a href="#注册界面" class="headerlink" title="注册界面"></a>注册界面</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lg5mjf9j309g078aai" alt=""></p>
+<h6 id="注册失败"><a href="#注册失败" class="headerlink" title="注册失败"></a>注册失败</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ljkpzwdj309d0790t9" alt=""></p>
+<h6 id="聊天室界面"><a href="#聊天室界面" class="headerlink" title="聊天室界面"></a>聊天室界面</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ljtv062j30fe0bbdgn" alt=""></p>
+<h6 id="群发消息"><a href="#群发消息" class="headerlink" title="群发消息"></a>群发消息</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lk0161kj30ec0od76l" alt=""></p>
+<h6 id="私聊功能"><a href="#私聊功能" class="headerlink" title="私聊功能"></a>私聊功能</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lk6ztp7j30fd0ogn0d" alt=""></p>
+<h6 id="离线接受功能"><a href="#离线接受功能" class="headerlink" title="离线接受功能"></a>离线接受功能</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lkd1g04j30iu0bv75k" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/11/spring-transactional/" itemprop="url">
                   Spring @Transactional配置
                 </a>
@@ -1871,7 +2318,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1879,7 +2326,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1888,7 +2335,7 @@ f、脚本停止mysql服务：            #  /etc/rc.d/init.d/mysqld stop
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

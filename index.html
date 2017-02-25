@@ -1633,8 +1633,8 @@ public class Main{
             
               
                 
-                <a class="post-title-link" href="/2016/08/22/aliyun-svn/" itemprop="url">
-                  阿里云服务器安装svn服务器端
+                <a class="post-title-link" href="/2016/08/25/time-as-friend/" itemprop="url">
+                  《把时间当作朋友》 总结
                 </a>
               
             
@@ -1647,8 +1647,8 @@ public class Main{
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-22T23:07:59+08:00" content="2016 年 08 月 22 日">
-              2016 年 08 月 22 日
+            <time itemprop="dateCreated" datetime="2016-08-25T13:33:37+08:00" content="2016 年 08 月 25 日">
+              2016 年 08 月 25 日
             </time>
           </span>
 
@@ -1661,8 +1661,8 @@ public class Main{
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发工具/" itemprop="url" rel="index">
-                    <span itemprop="name">开发工具</span>
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
                   </a>
                 </span>
 
@@ -1673,8 +1673,8 @@ public class Main{
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发工具/SVN/" itemprop="url" rel="index">
-                    <span itemprop="name">SVN</span>
+                  <a href="/categories/Life/Book/" itemprop="url" rel="index">
+                    <span itemprop="name">Book</span>
                   </a>
                 </span>
 
@@ -1689,8 +1689,8 @@ public class Main{
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/22/aliyun-svn/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/22/aliyun-svn/" itemprop="commentsCount"></span>
+                <a href="/2016/08/25/time-as-friend/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/time-as-friend/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1700,7 +1700,7 @@ public class Main{
 
           
           
-             <span id="/2016/08/22/aliyun-svn/" class="leancloud_visitors" data-flag-title="阿里云服务器安装svn服务器端">
+             <span id="/2016/08/25/time-as-friend/" class="leancloud_visitors" data-flag-title="《把时间当作朋友》 总结">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1724,71 +1724,179 @@ public class Main{
       
         
           
-            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/08/22/aliyun-svn/" target="_blank" rel="external">https://chensian.github.io/2016/08/22/aliyun-svn/</a> ）</p>
-<h4 id="1-安装svn服务器端"><a href="#1-安装svn服务器端" class="headerlink" title="1.安装svn服务器端"></a>1.安装svn服务器端</h4><pre><code>yum install subversion      
-</code></pre><p>从镜像下载安装svn服务器端<br>中间会提示是否ok，输入y，确认<br>安装成功提示：…..complete！</p>
-<p>依次执行如下命令：</p>
-<pre><code>cd /usr/local/              //进入目录，准备创建svn目录
-mkdir svnRepo                   //创建一个svn目录
-chmod -R 777 svnRepo            //修改目录权限为777
-svnadmin create /usr/local/svnRepo/first  //创建一个svn版本仓库first(first可以随便起名字)
-</code></pre><p>cd first/conf               //进入first版本仓库下的配置文件目录</p>
-<h4 id="2-下面要修改这个目录下的三个配置文件"><a href="#2-下面要修改这个目录下的三个配置文件" class="headerlink" title="2.下面要修改这个目录下的三个配置文件"></a>2.下面要修改这个目录下的三个配置文件</h4><p>(1)vi svnserve.conf    //配置版本库信息和用户文件和用户密码文件的路径、版本库路径<br>把</p>
-<pre><code># anon-access = read
-# auth-access = write
-# password-db = passwd
-</code></pre><p>//这四行，前面的#号和空格去掉，变成</p>
-<pre><code>anon-access = none      //改成none
-auth-access = write
-password-db = passwd
-
-realm = first           //改成自己的版本库
-</code></pre><p>保存退出</p>
-<p>(2)vi authz     //文件,创建svn组和组用户的权限</p>
-<pre><code>[groups]
-first = ddl,shl //创建一个first的组，并制定两个用户ddl和shl
-[/]             //制定根目录下的权限
-@first = rw     //first组用户权限为读写
-* = r           //其他用户只有读权限
-</code></pre><p>保存退出</p>
-<p>(3) vi passwd   //创建或修改用户密码</p>
-<pre><code>[users]
-ddl = 123456    //用户名为gep的用户的密码为123456
-shl = 123456    //。。。
-</code></pre><p>保存退出</p>
-<h4 id="3-然后要设置自启动"><a href="#3-然后要设置自启动" class="headerlink" title="3.然后要设置自启动"></a>3.然后要设置自启动</h4><pre><code>vi /etc/rc.local    
-</code></pre><p>打开自启动文件<br>文件内容如下</p>
-<pre><code>#!/bin/sh
-# This script will be executed *after* all the other init scripts.
-# You can put your own initialization stuff in here if you don&apos;t
-# want to do the full Sys V style init stuff.
-
-touch /var/lock/subsys/local
-</code></pre><p>添加下面一行</p>
-<pre><code>svnserve -d -r /usr/local/svnRepo/first
-</code></pre><p>保存退出</p>
-<pre><code>ps aux |grep &apos;svn&apos;  查找所有svn启动的进程
-</code></pre><p>杀死 然后启动svn</p>
-<pre><code>svnserve -d -r /usr/local/svnRepo/first 启动svn(可以把这个放到/etc/local/rc.local文件中，实现开机自启动)
-</code></pre><h4 id="4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件"><a href="#4-限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的-authz文件" class="headerlink" title="4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件"></a>4.限制不同的用户对不同的版本库操作权限，修改版本库中的conf目录下的 authz文件</h4><p>以配置 first 版本库为例</p>
-<pre><code>vi authz
-
-[groups]
-company = user1,user2
-[first:/]             //指定版本库跟目录下的权限
-@company = rw     //company组用户权限为读写
-* = r           //其他用户只有读权限
-</code></pre><p>保存退出</p>
-<p>vi passwd 设置组中用户的账号和密码</p>
-<pre><code>[users]
-user1  = 123456
-user2 = 123456
-</code></pre><h4 id="5-客户端访问"><a href="#5-客户端访问" class="headerlink" title="5.客户端访问"></a>5.客户端访问</h4><p>假设客户端使用tortoiseSVN<br>打开资源库浏览器输入地址, svn://你的svn服务器ip:3690<br>输入用户名ddl 密码12345<br>因为没有网资源库里放文件所以需要你用客户端右键【create forder】，然后【add forder】</p>
-<h4 id="6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库"><a href="#6-SVN版本库起动方式，现在svnRepo下面有-first、test-两个版本库" class="headerlink" title="6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库"></a>6.SVN版本库起动方式，现在svnRepo下面有 first、test 两个版本库</h4><p>1：单版本库起动 </p>
-<pre><code>svnserve -d -r /usr/local/svnRepo/first
-</code></pre><p>2：多版本库起动</p>
-<pre><code>svnserve -d -r /usr/local/svnRepo
-</code></pre><p>区别在于起动svn时候的命令中的启动参数-r指定的目录。</p>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/08/25/time-as-friend/" target="_blank" rel="external">https://chensian.github.io/2016/08/25/time-as-friend/</a> ）</p>
+<h2 id="把时间当作朋友"><a href="#把时间当作朋友" class="headerlink" title="把时间当作朋友"></a>把时间当作朋友</h2><hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><ul>
+<li><p>绝大多数学习上的成功根本与智商没有任何关系，所有的失败都与且只与时间限制有关</p>
+</li>
+<li><p>生命的本质以及乐趣就在于“Who knows what happens next?”</p>
+</li>
+</ul>
+<ul>
+<li><p>大多的努力其实不过是简单而又貌似枯燥的重复。<br>很多人害怕思考，常常说，“想那么多干嘛，多累啊？”然后用天下最累的方式生活而不<br>自知。大哲学家罗素曾观察到这个现象，并为之奇怪，慨叹道， “很多人宁愿死也不愿思考 。 </p>
+</li>
+<li><p>我竟然没有意识到管理的焦点根本就不应该是时间，而应该是我自己！</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>写作，只有想清楚了，才可能写清楚。更喜欢讲思维方法</li>
+</ul>
+<ol>
+<li><p>死背单词，文章？</p>
+<ul>
+<li>既勤奋又懒惰”的怪异现象来自于他们对“时间压力”感受。“没有时间了”，或者“时间不够了”的感受和恐惧，使得他们超乎寻常地勤奋，哪怕是虚假地“勤奋”，恨不能废寝忘食。</li>
+<li>巨大的压力，极度的恐惧，使患者的身上集结并综合了一切的矛盾：他们既勤奋又懒惰，既聪明又愚蠢，既勇敢又懦弱，既满怀希望又时时刻刻面临绝望，既充满自信又随时随地体会卑微</li>
+</ul>
+</li>
+<li><p>老师，这个方法真的有用么？</p>
+<ul>
+<li>不管什么方法，都要通过实践才能获得效果</li>
+<li>实践需要花费时间，而每个人的时间都是因有限而宝贵</li>
+<li>你怎么还在浪费时间想这样没用的问题呢？要是你早就开始实践的话，现在不就能知道那方法是否真的有用了么</li>
+<li>从某种意义上来看，居然是彻头彻尾地出自于理性，你必须告诉我，你的方法到底是否真的有用？如果答案不是确定的 ，我才不会采取行动呢。几乎所有拒绝学习的人其实都正是因为他们觉得自己的这个推理，准确无误，才那么理直气壮地选择拒绝学习。</li>
+</ul>
+</li>
+<li><p>人与人之间怎么会有那么大的差异呢？</p>
+<ul>
+<li><p>人与人之间的差异 —— 除了看得见的相貌、身材、出身、财富之外，还有看不见摸不着的心智力量差别</p>
+</li>
+<li><p>因“不知道学习有什么用”而拒绝学习的人，会在接下来的日子里虚度光阴把时间当作朋友——运用心智获得解放无数，哪怕他们天天“科学地”制定计划，编制“任务列表”。而与之相反，因“不知道学习有什么用”而选择努力学习的人，每时每刻都充满了收获，并且会在将来的某一天获得更多的“意外”收获，哪怕他们可能显得“漫无目的”——真的就是天壤之别。</p>
+</li>
+</ul>
+</li>
+<li><p>上司很愚蠢？</p>
+<ul>
+<li><p>既然上司那么愚蠢，他们又为什么要用自己宝贵的生命中的大部分时间为那个愚蠢的上司打工呢？那些少数能够提出建设性意见的人，是不会抱怨“上司很愚蠢”的，因为，他们要么想办法帮助上司解决问题，要么就在爱莫能助的时候选择离开公司，自行其是</p>
+</li>
+<li><p>大多数情况下，一个人如果不做事的话，是不会暴露自己的缺点的，因为人只有在做事的时候才会暴露缺点。这就是为什么大多数人并不自知的重要原因</p>
+</li>
+</ul>
+</li>
+<li><p>兴趣真的那么重要么？</p>
+<ul>
+<li>对目前的专业没兴趣，不客气地说，99%的情况下并非如此。首先，这些人并不是对正在做的事情没有兴趣，而是没能力把目前正在做的事情做好。</li>
+<li>但是不管怎样，一定要问清楚自己这个问题： 我不喜欢做这件事情有没有可能仅仅是因为这件事儿我并没有做好？要是因为自己没有做好而不喜欢，就要分辨另外一件事儿了：做好这件事情究竟对自己有没有什么具体的意义呢？如果有，那就要努力做，直到做好为止——没有其他选择。</li>
+<li>往往并不是有兴趣才能做好，而是做好了才有兴趣</li>
+</ul>
+</li>
+<li><p>学习方法真的至关重要么？</p>
+<ul>
+<li>只有聪明的人才去关心方法，这没什么不对。然而，学生总是过分关心自己正在用的方法是不是正确。仅仅正确还不够，还要考虑这方法是不是足够巧妙。与其不停地找更好的方法，还不如马上开始行动，省得虚度更多的时间。</li>
+</ul>
+</li>
+<li><p>盲打究竟是否值得学会？</p>
+<ul>
+<li>只有拥有了无以伦比的打字速度才知道打字快有多大的好处</li>
+<li>拒绝去练习盲打，只不过是出于懒惰而拒绝学习和练习</li>
+<li>学会了盲打，那么，我可以多出多少读书笔记，积累多少文字</li>
+</ul>
+</li>
+</ol>
+<h6 id="事实上，没有什么要比发现、培养、呵护、调整自己的心智的力量更重要的事情了，重要的是，他每天都在反省"><a href="#事实上，没有什么要比发现、培养、呵护、调整自己的心智的力量更重要的事情了，重要的是，他每天都在反省" class="headerlink" title="事实上，没有什么要比发现、培养、呵护、调整自己的心智的力量更重要的事情了，重要的是，他每天都在反省"></a>事实上，没有什么要比发现、培养、呵护、调整自己的心智的力量更重要的事情了，重要的是，他每天都在反省</h6><hr>
+<ol>
+<li><p>控制自己的大脑</p>
+<ul>
+<li>不再让自己成为自己的大脑的奴隶，而是选择翻身做主人.</li>
+<li>你的大脑非常活跃，并且你的注意力最容易接受它的指令；所以，甚至在你自己都没有意识到的情况把时间当作朋友——运用心智获得解放下，它在不停地操控你的注意力。</li>
+</ul>
+</li>
+<li><p>控制自己的情绪</p>
+<ul>
+<li>一个人遗忘痛苦的能力特别强的一个具体表现就是，这个人会很轻易地原谅自己。好了伤疤就忘了疼,记住痛苦</li>
+</ul>
+</li>
+<li><p>控制天性</p>
+<ul>
+<li>希望自己的欲望马上获得满足（instantgratification）是大多数人的天性,野心是永远是少数人的天性。</li>
+<li>在工作和学习上，坚决不要放纵。</li>
+<li>在其他方面稍微放纵一下都是非常有必要的。偶尔大醉一场没什么不好。偶尔连续打上两天两夜的牌不仅有助于身心健康也是一种很好的社交活动</li>
+<li>“推迟满足感”是心智成熟的人必备的能力</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>李敖的事件记录，往往只能记录事件的名称，是一种基于结果的记录；而柳比歇夫的 “事件 - 时间日志”却是一种基于过程的记录。</p>
+<p>人或多或少是经验主义的动物，我们一生中半途而废的经验太多了，乃至于想要放弃“半途而废”要比“坚持到底最终成功”难太多了——大多数人连一次“坚持到底最终成功”的经验都没有。</p>
+<p>与懒惰抗争、停止遗忘、坚持改变的工具，就是纸笔。</p>
+<h3 id="开始记录时间开销"><a href="#开始记录时间开销" class="headerlink" title="开始记录时间开销"></a>开始记录时间开销</h3><p> 第一组练习</p>
+<p> （一）认真回忆一下并记录昨天你都做了什么。逐条记录下来，前面写上标号，后面标注出做那件事情所花费的时间。</p>
+<p> （二）认真回忆一下并记录前天你都做了什么。同样逐条记录下来。</p>
+<p> （三）认真回忆一下并记录大前天你都做了什么。同样逐条记录下来。</p>
+<p> 第二组练习（这组练习只需要你用一个下午就够了）</p>
+<p>（一）认真回忆一下并记录上一周你都做了什么。</p>
+<p>（二）认真回忆一下并记录上一个月你都做了什么。</p>
+<p>（三）认真回忆一下并记录上一个季度你都做了什么。</p>
+<p>（四）认真回忆一下并记录过去的一年里你都做了什么。</p>
+<p>第三组练习</p>
+<p>（一）用一个星期时间，每天晚上回忆一下并记录当天你都做了什么。</p>
+<p>（二）用一个星期时间，每天随时记录你刚刚做完的事情花费了多少时间。</p>
+<hr>
+<h3 id="每天制作你的时间预算"><a href="#每天制作你的时间预算" class="headerlink" title="每天制作你的时间预算"></a>每天制作你的时间预算</h3><p>花费15至30分钟仔细制作你当天的时间预算</p>
+<p>最直接的方法就是制作一个列表，把你今天需要做的事情罗列出来。</p>
+<p>遇到的第一个问题是发现， 任务太多，无法全部完成。于是你只好进行选择。 事实上，生活就是选择</p>
+<p>判断一个任务是否“真的重要”，其实只需要一个标准：就是看这个任务的完成是否对你的目标（无论是长期，还是短期）达成是否确实有益。</p>
+<h3 id="每个人都或多或少，或清楚明了或含混不清地有自己的目标——不管是什么所谓的“理想”或者“痴心妄想”。那你现在就开始参照着那个你自己的哪怕是“不切实际”的目标作为标准来判断吧"><a href="#每个人都或多或少，或清楚明了或含混不清地有自己的目标——不管是什么所谓的“理想”或者“痴心妄想”。那你现在就开始参照着那个你自己的哪怕是“不切实际”的目标作为标准来判断吧" class="headerlink" title="每个人都或多或少，或清楚明了或含混不清地有自己的目标——不管是什么所谓的“理想”或者“痴心妄想”。那你现在就开始参照着那个你自己的哪怕是“不切实际”的目标作为标准来判断吧"></a>每个人都或多或少，或清楚明了或含混不清地有自己的目标——不管是什么所谓的“理想”或者“痴心妄想”。那你现在就开始参照着那个你自己的哪怕是“不切实际”的目标作为标准来判断吧</h3><hr>
+<p>（一）大多数情况下确实没必要制作列表。  学习&amp;工作</p>
+<p>（二）最好的列表记录工具是纸和笔。</p>
+<p>（三）列表没必要工整。</p>
+<p>（四）列表一定要随手可及。</p>
+<p>（五）最重要的任务永远只有一个。</p>
+<p>（六）制作专门的下一阶段任务列表。（更改任务列表）</p>
+<p>（七）给你的每个任务制定一个核对列表。</p>
+<p>（八）列表一旦开始执行就一定要执行到底</p>
+<h4 id="证明我的目标现实可行的方法比较简单："><a href="#证明我的目标现实可行的方法比较简单：" class="headerlink" title="证明我的目标现实可行的方法比较简单："></a>证明我的目标现实可行的方法比较简单：</h4><p>1) 已经有人做到了；</p>
+<p>2) 我与那人没有太大的差距。</p>
+<ul>
+<li><p>目标是不是确实不可行，往往只有开始行动了之后， 才可以做出正确的判断。</p>
+</li>
+<li><p>半途而废不仅并不意味着失败，还意味着该决策者是无比理智的。</p>
+</li>
+<li><p>时间的浪费，往往是1)目标不现实或者目前暂时尚不可行；2)为了达到目标而制定的实施策略有误</p>
+</li>
+</ul>
+<h4 id="长期计划是需要通过实践才能习得的能力"><a href="#长期计划是需要通过实践才能习得的能力" class="headerlink" title="长期计划是需要通过实践才能习得的能力"></a>长期计划是需要通过实践才能习得的能力</h4><p>每个计划的期限从一个星期 到一个月 到 一个季度 到一年</p>
+<p>没必要做计划的原因有两个：除了前面提到过的“大多数计划其实非常简单”之外，另外一个是“初始状态下，甚至连基本的认知都没有的时候，我们往往实际上并没有能力去制定合理有效的计划”。</p>
+<p>如果你想改变你自己，或者你自己目前并不令人满意的处境，那就一切从简——找一个你觉得该给你带来改变的行动，然后去做就是了。</p>
+<hr>
+<h4 id="获得知识的基本途径"><a href="#获得知识的基本途径" class="headerlink" title="获得知识的基本途径"></a>获得知识的基本途径</h4><ul>
+<li>所有的人获取知识的最为基础的手段就是通过体验。经验主义的局限</li>
+<li>再高级一点的获取知识的手段，就是试错（Trial  d and  error） 。</li>
+<li>另外一个聪明一点的，也重要得多的获取知识的方式是通过观察。</li>
+<li>阅读就成了获取知识的更加重要的手段，当然也是相对更加需要心智能力的手段 </li>
+<li>“正确地思考”，才是获取真正意义上的知识的主要手段。</li>
+</ul>
+<p><strong>很多时候，人们的善良出自于软弱，而他们的残暴出只不过来自于恐惧。</strong></p>
+<h4 id="摆脱经验的局限"><a href="#摆脱经验的局限" class="headerlink" title="摆脱经验的局限"></a>摆脱经验的局限</h4><p>生活中几乎所有主要的“沟通障碍”本质上都是因为沟通双方无法让对方理解与他们的经验相悖的知识或者信息造成的</p>
+<hr>
+<h4 id="关于自学能力"><a href="#关于自学能力" class="headerlink" title="关于自学能力"></a>关于自学能力</h4><p>自学能力的基础技能是阅读理解能力。<br>检索能力是建立在相当熟练的阅读能力之上的能力。<br>写作能力在自学能力中占据着重要的地位。<br>实践能力是自学能力最终能够转化为真正价值的根本。<br>永远保持开放的心态<br>了解学习的进程</p>
+<h4 id="学会考试"><a href="#学会考试" class="headerlink" title="学会考试"></a>学会考试</h4><p>比如高考，比如考研，比如托福与 GRE，就别想着什么智取，什么捷径，什么速成，统统没戏。其实，很少有什么考试考验你的智商， 本质上来看，谁准备的更久，准备的更充分，谁就更可能胜出——尤其是像SAT 、托福、雅思、GRE、GMAT 这种设计精良的考试。</p>
+<p>准备考试最好的方法就是做题</p>
+<p>边做题边整理还不够。还要经常找时间重新审视自己的记录</p>
+<ol>
+<li>要热爱考试，因为你喜欢通行证。</li>
+<li>分辨考试的重要性。</li>
+<li>提前很久开始准备重要的考试。</li>
+<li>做题是最好的准备方法。</li>
+<li>通过做题了解考试的重点、难点。</li>
+<li>全面补习难点重点，并经常重新审视。</li>
+<li>教是最好的学习方法。</li>
+</ol>
+<hr>
+<h4 id="学会记笔记"><a href="#学会记笔记" class="headerlink" title="学会记笔记"></a>学会记笔记</h4><ul>
+<li>笔记区域：尽可能完整而全面地记录演讲。</li>
+<li>提示栏：当你做笔记的时候, 让提示栏保持空白。演讲过后，简化你的笔记使之成<br>为简明提示以供日后记忆，回顾和消化（思考）之用。</li>
+<li>概要：用一个或二个句子总结你的每页笔记。</li>
+</ul>
+<p>在记笔记的时候，可以借助一些符号来简化书写</p>
+<p>接受自己与别人没什么不同，至少没什么本质性上的 不同，是心智正常成长的重要前提 之一。</p>
+<p>人类拥有的普遍的认知偏差之一就是：把成功揽到自己身上，把失败归咎于别人或者坏运气。 </p>
+<p>  不要相信运气，更不要相信</p>
+<hr>
+<h4 id="关于效率"><a href="#关于效率" class="headerlink" title="关于效率"></a>关于效率</h4><p>记住，你不可能百分之百地有效率，至少不可能总是百分之百地有效率。</p>
+<p>要想办法提前预知自己会需要怎样的技能，然后确定那是一个自己可以通过练习真正熟练掌握的技能之后，而后制定长期计划，一点一点地执行该计划。</p>
+<p>机会总是眷顾那些有准备好了人</p>
+<p>记住，意外总是发生的原因绝对不是因为你的运气格外差，而往往只不过是因为你考虑得不够周全。</p>
 
           
         
@@ -1838,8 +1946,8 @@ user2 = 123456
             
               
                 
-                <a class="post-title-link" href="/2016/05/24/chat-udp/" itemprop="url">
-                  基于UDP协议实现的Java聊天室
+                <a class="post-title-link" href="/2016/08/23/machine-learn-resource/" itemprop="url">
+                  机器学习代码库
                 </a>
               
             
@@ -1852,8 +1960,8 @@ user2 = 123456
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-24T12:40:18+08:00" content="2016 年 05 月 24 日">
-              2016 年 05 月 24 日
+            <time itemprop="dateCreated" datetime="2016-08-23T19:27:52+08:00" content="2016 年 08 月 23 日">
+              2016 年 08 月 23 日
             </time>
           </span>
 
@@ -1866,20 +1974,8 @@ user2 = 123456
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/Socket/" itemprop="url" rel="index">
-                    <span itemprop="name">Socket</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -1894,8 +1990,8 @@ user2 = 123456
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/24/chat-udp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/24/chat-udp/" itemprop="commentsCount"></span>
+                <a href="/2016/08/23/machine-learn-resource/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/23/machine-learn-resource/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1905,7 +2001,7 @@ user2 = 123456
 
           
           
-             <span id="/2016/05/24/chat-udp/" class="leancloud_visitors" data-flag-title="基于UDP协议实现的Java聊天室">
+             <span id="/2016/08/23/machine-learn-resource/" class="leancloud_visitors" data-flag-title="机器学习代码库">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1929,108 +2025,28 @@ user2 = 123456
       
         
           
-            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2016/05/24/chat-udp/" target="_blank" rel="external">https://chensian.github.io/2016/05/24/chat-udp/</a> ）</p>
-<p>Github ：<a href="https://github.com/chensian/Chat-UDP" target="_blank" rel="external">https://github.com/chensian/Chat-UDP</a></p>
-<h4 id="项目环境"><a href="#项目环境" class="headerlink" title="项目环境"></a>项目环境</h4><p>eclipse EE</p>
-<p>JDK1.8 + Mysql</p>
-<h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>本聊天室系统是采用C/S架构设计的JAVA语言编写的聊天系统。该聊天系统具有完整的会话功能，服务器具有侦听服务，转发聊天信息，响应用户下线，发送系统消息的功能。客户端具有登陆，断开连接，发送聊天信息，接收聊天信息的功能。该聊天室由服务端和客户端组成，主要用到Socket通信的网络应用。  </p>
-<h4 id="模块分解"><a href="#模块分解" class="headerlink" title="模块分解"></a>模块分解</h4><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2kzfjtruj30cy06uaa3" alt=""></p>
-<h4 id="功能需求分析"><a href="#功能需求分析" class="headerlink" title="功能需求分析"></a>功能需求分析</h4><h5 id="聊天室客户端需求分析"><a href="#聊天室客户端需求分析" class="headerlink" title="聊天室客户端需求分析"></a>聊天室客户端需求分析</h5><p>（1）基本功能即可以即时通讯</p>
-<p>（2）可以查询在线用户基本信息</p>
-<p>（3）可以进行群聊</p>
-<p>（4）可以进行私聊</p>
-<p>（5）可以显示在线用户列表</p>
-<p>（6）可以离线接收信息</p>
-<h5 id="聊天室服务器端需求分析"><a href="#聊天室服务器端需求分析" class="headerlink" title="聊天室服务器端需求分析"></a>聊天室服务器端需求分析</h5><p>（1）可以显示在线用户基本信</p>
-<p>（2）可以显示用户发送的聊天信息的基本情况（信息内容）</p>
-<h4 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h4><h5 id="UDP协议的几个特性"><a href="#UDP协议的几个特性" class="headerlink" title="UDP协议的几个特性"></a>UDP协议的几个特性</h5><p>（1）UDP是一个无连接协议，传输数据之前源端和终端不建立连接，当UDP它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上。在发送端，UDP传送数据的速度仅仅是受应用程序生成数据的速度、计算机的能力和传输带宽的限制；在接收端，UDP把每个消息段放在队列中，应用程序每次从队列中读一个消息段。</p>
-<p>（2） 由于传输数据不建立连接，因此也就不需要维护连接状态，包括收发状态等，因此一台服务机可同时向多个客户机传输相同的消息。</p>
-<p>（3） UDP信息包的标题很短，只有8个字节，相对于TCP的20个字节信息包的额外开销很小。</p>
-<p>（4） 吞吐量不受拥挤控制算法的调节，只受应用软件生成数据的速率、传输带宽、源端和终端主机性能的限制。 </p>
-<p>（5）UDP使用尽最大努力交付，即不保证可靠交付，因此主机不需要维持复杂的链接状态表（这里面有许多参数）。 </p>
-<p>（6）UDP是面向报文的。发送方的UDP对应用程序交下来的报文，在添加首部后就向下交付给IP层。既不拆分，也不合并，而是保留这些报文的边界，因此，应用程序需要选择合适的报文大小。</p>
-<h5 id="TCP与UDP比较"><a href="#TCP与UDP比较" class="headerlink" title="TCP与UDP比较"></a>TCP与UDP比较</h5><p>（1）UDP是无状态的，该协议使得数据传输的速度得到大幅度的提高。视频聊天语音聊天基本都是用UPD协议。 TCP接到客户端请求后马上做一个线程，将连接对象传递进去进行处理！但是UDP的话是没有连接对象的，只要消息包的概念！<br>（2）TCP是面向连接的，有比较高的可靠性，一些要求比较高的服务一般使用这个协议，如FTP、Telnet、SMTP、HTTP、POP3等，而UDP是面向无连接的，使用这个协议的常见服务有DNS、SNMP、QQ等。</p>
-<h4 id="Java-UDP-技术"><a href="#Java-UDP-技术" class="headerlink" title="Java UDP 技术"></a>Java UDP 技术</h4><h5 id="DatagramPacket类说明"><a href="#DatagramPacket类说明" class="headerlink" title="DatagramPacket类说明"></a>DatagramPacket类说明</h5><p>该类表示一个数据报包。该数据报包用来实现一个无连接包的传送服务。它是进行数据报通信的基本单位。包含了IP地址、端口号和需要传输的数据等。在发送和接收数据报时，要创建DatagramPakcet类对象作为数据的载体。</p>
-<h6 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h6><p>（1）public DatagramPacket(byte ibuf[],int ilength)</p>
-<p>功能：创建一个用于接收数据报的DatagramPacket类对象。</p>
-<p>参数：</p>
-<p> buf：存储数据报的缓冲区。在数据报通信中，发送和接收一个数据报，都需提供一个缓冲区，用来安置发送和接收到的数据报。</p>
-<p>length：接收数据报的长度，必须小于等于ibuf.length。</p>
-<p>（2）public DatagramPacket(byte ibuf[],int ilength,InetAddress iaddr,int iport)</p>
-<p>功能：创建一个用于发送数据报的DatagramPacket类对象。</p>
-<p>参数：</p>
-<p>buf：存储数据报的缓冲区。</p>
-<p>length：发送数据报的长度，必须小于等于ibuf.length。</p>
-<p>addr：数据报要发送到的目的IP地址。</p>
-<p>port：数据报要发送到的目的地址的端口号。</p>
-<h6 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h6><p>（1）public synchronized InetAddress getAddress()</p>
-<p>功能：返回存放在接收或发送的数据报中的IP址。</p>
-<p>（2）public synchronized int getPort()</p>
-<p>功能：返回存放在接收或发送的数据报中的端口号。</p>
-<p>（3）public synchronized byte[] getData()</p>
-<p>功能：返回存放在数据报中的数据。</p>
-<p>（4）public synchronized int getLength()</p>
-<p>功能：返回数据报中数据的长度。</p>
-<p>（5）public synchronized void setAddress(InetAddress addr)</p>
-<p>功能：设置发送数据报的目的地址为iaddr。</p>
-<p>（6）public synchronized void setPort(int port)</p>
-<p>功能：设置发送数据报的目的地址的端口号为port。</p>
-<p>（7）public synchronized void setData(byte ibuf[])</p>
-<p>功能：设置数据报中的数据内容为字节数组ibuf的数据。</p>
-<p>（8）public synchronized void setLength(int ilength)</p>
-<p>功能：设置数据报中的数据的长度为ilength。</p>
-<h5 id="DatagramSocket类说明"><a href="#DatagramSocket类说明" class="headerlink" title="DatagramSocket类说明"></a>DatagramSocket类说明</h5><p>该类表示用来发送和接收数据报包的套接字（Socket）。要收发DatagramPacket，必须打开一个数据报套接字（Datagram Socket）。</p>
-<p>在Java中，数据报套接字通过DatagramSocket类来创建和访问。</p>
-<h6 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h6><p>（1）public DatagramSocket() throws SocketException</p>
-<p>功能：创建用于数据报通信的socket对象，由本地主机自动指定的一个可用的端口号。</p>
-<p>（2）public DatagramSocket(int port) throws SocketException</p>
-<p>功能：创建用于数据报通信的socket对象，并且把它绑定到本地主机指定的端口port。</p>
-<p>（3）public DatagramSocket(int port,InetAddress addr) throws SocketException</p>
-<p>功能：创建用于数据报通信的socket对象，并绑定到指定的本地地址addr的指定端口port。端口号port必须为0和65535之间的一个。</p>
-<h6 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h6><p>（1）public void send(DatagramPacket p) throws IOException</p>
-<p>功能：从此socket发送数据报包。</p>
-<p>（2）public synchronized void receive(DatagramPacket p) throws IOException</p>
-<p>功能：从网络接收一个UDP数据报包。存储在DatagramPacket类对象p中。该数据报包还包含发送方的IP 地址和发送方主机的端口号。</p>
-<p>（3）public InetAddress getLocalAddress()</p>
-<p>功能：获取该socket绑定的本地地址。</p>
-<p>（4）public int getLocalPort()</p>
-<p>功能：获取该socket绑定的本地主机的端口号。</p>
-<p>（5）public void close()</p>
-<p>功能：释放该数据报socket所占用的端口。</p>
-<h4 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h4><h5 id="服务器端介绍"><a href="#服务器端介绍" class="headerlink" title="服务器端介绍"></a>服务器端介绍</h5><p>1)newsPush(String, DatagramPacket)</p>
-<p>说明：登录时，离线消息推送。</p>
-<p>2)sendAll(Message, DatagramPacket)</p>
-<p>说明：群发消息</p>
-<p>3)sendONE(Message, DatagramPacket)</p>
-<p>说明：私聊私发消息</p>
-<p>4)register(User, DatagramPacket)</p>
-<p>说明：注册事务处理</p>
-<p>5)login(User, DatagramPacket)</p>
-<p>说明：登录事务处理</p>
-<h5 id="客户端介绍"><a href="#客户端介绍" class="headerlink" title="客户端介绍"></a>客户端介绍</h5><p>1)登录失败：用户名或者密码错误，返回200</p>
-<p>2)登录成功：服务器返回211     </p>
-<p>3)重复登录，服务器对此ID的原登录客户端返回201</p>
-<p>4)登录时，对密码传送进行加密(采用md5计算摘要法)，发送换算好后的password传输至服务器。</p>
-<p>5)类型与长度：</p>
-<p>用户名：固定10位的数字（注册人的学号）组成。</p>
-<p>密码：6~8位，仅接受由数字或字母组成的密码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">（用户名和密码格式设置错误了，服务器将会返回100）</div><div class="line">（用户名重复，服务器将会返回101）</div><div class="line">（注册成功，服务器返回111）</div></pre></td></tr></table></figure>
-<h5 id="聊天室"><a href="#聊天室" class="headerlink" title="聊天室"></a>聊天室</h5><p>1)clearMessage()</p>
-<p> 说明：清空聊天窗口记录</p>
-<p>2)exit()</p>
-<p> 说明：退出聊天室</p>
-<p>3)sendMessage()</p>
-<p> 说明：发送消息，可以选择群聊或私聊</p>
-<p>4)changeUser()</p>
-<p> 说明：切换聊天好友。</p>
-<h5 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h5><h6 id="java对象与字节数组相互转换"><a href="#java对象与字节数组相互转换" class="headerlink" title="java对象与字节数组相互转换"></a>java对象与字节数组相互转换</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">public static byte[] ObjectToByte(java.lang.Object obj) &#123;</div><div class="line">        byte[] bytes = null;</div><div class="line">        try &#123;</div><div class="line">            // object to bytearray</div><div class="line">            ByteArrayOutputStream bo = new ByteArrayOutputStream();</div><div class="line">            ObjectOutputStream oo = new ObjectOutputStream(bo);</div><div class="line">            oo.writeObject(obj);</div><div class="line">            bytes = bo.toByteArray();</div><div class="line">            bo.close();</div><div class="line">            oo.close();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            System.out.println(&quot;translation&quot; + e.getMessage());</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return bytes;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static Object ByteToObject(DatagramPacket inPacket) &#123;</div><div class="line">        byte[] bytes = inPacket.getData();</div><div class="line">        Object obj = null;</div><div class="line">        try &#123;</div><div class="line">            // bytearray to object</div><div class="line">            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);</div><div class="line">            ObjectInputStream oi = new ObjectInputStream(bi);</div><div class="line">            obj = oi.readObject();</div><div class="line">            bi.close();</div><div class="line">            oi.close();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            System.out.println(&quot;translation&quot; + e.getMessage());</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return obj;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h5 id="结果状态码"><a href="#结果状态码" class="headerlink" title="结果状态码"></a>结果状态码</h5><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ler10h3j30f50anjro" alt=""></p>
-<h5 id="运行界面"><a href="#运行界面" class="headerlink" title="运行界面"></a>运行界面</h5><h6 id="注册界面"><a href="#注册界面" class="headerlink" title="注册界面"></a>注册界面</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lg5mjf9j309g078aai" alt=""></p>
-<h6 id="注册失败"><a href="#注册失败" class="headerlink" title="注册失败"></a>注册失败</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ljkpzwdj309d0790t9" alt=""></p>
-<h6 id="聊天室界面"><a href="#聊天室界面" class="headerlink" title="聊天室界面"></a>聊天室界面</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2ljtv062j30fe0bbdgn" alt=""></p>
-<h6 id="群发消息"><a href="#群发消息" class="headerlink" title="群发消息"></a>群发消息</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lk0161kj30ec0od76l" alt=""></p>
-<h6 id="私聊功能"><a href="#私聊功能" class="headerlink" title="私聊功能"></a>私聊功能</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lk6ztp7j30fd0ogn0d" alt=""></p>
-<h6 id="离线接受功能"><a href="#离线接受功能" class="headerlink" title="离线接受功能"></a>离线接受功能</h6><p><img src="http://ww1.sinaimg.cn/large/005LZfaWgy1fd2lkd1g04j30iu0bv75k" alt=""></p>
+            <p>转载请注明出处，谢谢！（原文链接：<a href="https://chensian.github.io/2015/07/26/machine-learn-resource/" target="_blank" rel="external">https://chensian.github.io/2015/07/26/machine-learn-resource/</a> ）</p>
+<p>今天给大家介绍一下开源机器学习代码库：</p>
+<p>1.机器学习开源软件网（收录了各种机器学习的各种编程语言学术与商业的开源软件）</p>
+<p><a href="http://mloss.org" target="_blank" rel="external">http://mloss.org</a></p>
+<p>2 偶尔找到的机器学习资源网：（也非常全，1和2基本收录了所有ML的经典开源软件了）</p>
+<p><a href="http://www.dmoz.org/Computers/Artificial_Intelligence/Machine_Learning/Software/" target="_blank" rel="external">http://www.dmoz.org/Computers/Artificial_Intelligence/Machine_Learning/Software/</a></p>
+<p>3 libsvm （支持向量机界最牛的，不用多说了，台湾大学的林教授的杰作）</p>
+<p><a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="external">http://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></p>
+<p>4 WEKA （基于java的机器学习算法最全面最易用的开源软件）</p>
+<p><a href="http://www.cs.waikato.ac.nz/ml/weka/" target="_blank" rel="external">http://www.cs.waikato.ac.nz/ml/weka/</a></p>
+<p>5 scikit (本人最喜欢的一个基于python的机器学习软件，代码写得非常好，而且官方的文档非常全，所有都有例子，算法也齐全，开发也活跃，强烈推荐给大家用）</p>
+<p><a href="http://scikit-learn.org/stable/" target="_blank" rel="external">http://scikit-learn.org/stable/</a></p>
+<p>6 OpenCv(最牛的开源计算机视觉库了，前途无可限量，做图像处理与模式识别的一定要用，总不能整天抱着matlab做实验和工业界脱节吧，但是有一定难度)</p>
+<p><a href="http://opencv.willowgarage.com/wiki/" target="_blank" rel="external">http://opencv.willowgarage.com/wiki/</a></p>
+<p>7 Orange (基于c++和python接口的机器学习软件，界面漂亮，调用方便,可以同时学习C＋＋和python，还有可视化的功能，）</p>
+<p><a href="http://orange.biolab.si/" target="_blank" rel="external">http://orange.biolab.si/</a></p>
+<p>8 Mallet (基于JAVA实现的机器学习库，主要用于自然语言处理方面，特色是马尔可夫模型和随机域做得好，可和WEKA互补）</p>
+<p><a href="http://mallet.cs.umass.edu/" target="_blank" rel="external">http://mallet.cs.umass.edu/</a></p>
+<p>9 NLTK(PYTHON的自然处理开源库，非常易用，也强大，还有几本orelly的经典教程）</p>
+<p><a href="http://nltk.org/" target="_blank" rel="external">http://nltk.org/</a></p>
+<p>10 lucene(基于java的包括nutch,solr,hadoop,mahout等全套，是做信息检索和搜索引擎的同志们必学的开源软件了，学JAVA的必学）</p>
+<p><a href="http://lucene.apache.org/" target="_blank" rel="external">http://lucene.apache.org/</a></p>
 
           
         
@@ -2104,7 +2120,7 @@ user2 = 123456
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2112,7 +2128,7 @@ user2 = 123456
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2121,7 +2137,7 @@ user2 = 123456
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
