@@ -3,9 +3,30 @@
   
     
     <entry>
+      <title><![CDATA[chat-udp]]></title>
+      <url>%2F2017%2F02%2F24%2Fchat-udp%2F</url>
+      <content type="text"></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[linux 命令 赋权 chmod]]></title>
+      <url>%2F2017%2F01%2F24%2Flinux-command%2F</url>
+      <content type="text"><![CDATA[字母操作符修改法linux文件或目录的权限分为，读、写、可执行三种权限。文件访问的用户类别分为，文件创建者、与文件创建者同组的用户、其他用户三类。 修改文件的权限或目录的命令为“chmod 755 test.sh”。755表示“创建者拥有读写可执行权限、同一组用户以及其他用户拥有读和执行权限”。 “755”怎么构成的:”0”表示没有权限、“1”表示可执行权限、“2”表示可写权限、“4”表示可读权限。“7=1+2+4，5=1+4”。 使用“chmod 777 test.sh” 令使用能使用linux系统的用户拥有相同的“读写可执行权限”。 # chmod 777 test.sh # ls -l | grep test.sh 字母操作符修改法linux给文件或目录赋权限还有一种容易理解方法。比如：“chmod a-x” 表示所有用户对此文件或目录将没有执行权限。 “a”表示所有用户，“u”表示创建者、“g”表示创建者同组用户、“o”表示其他用户；“+”表示添加权限，“-”表示取消权限；“r”表示读权限、“w”表示写权限、“x”表示写权限。 将系统下/tmp/history目录的权限中增加所属组的写权限。方法：在提示符后输入命令 # chmod g+w /tmp/history 完成后查看发现该目录的权限已由drwxr-xr-x变更为drwxrwxr-x。 # chmod u-x，g-w /tmp/history 完成后查看发现文件的权限已发生变更。这里注意多元素修改需要使用“，”连接。]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[centos 开发环境搭建]]></title>
       <url>%2F2017%2F01%2F03%2Fcentos-built-develope-envs%2F</url>
       <content type="text"><![CDATA[centos 开发环境搭建# mkdir chen # cd chen # mkdir softwares # mkdir tools # mkdir workspace # cd tools # tar -xzvf ../tools/apache-tomcat-8.0.26.tar.gz # tar -xzvf ../tools/jdk-8u91-linux-x64.gz JDK安装# vim /etc/profile # export JAVA_HOME=/home/chen/softwares/jdk1.8.0_91 # export PATH=$JAVA_HOME/bin:$PATH # source /etc/profile Tomcat安装# mv apache-tomcat-8.0.26 tomcat # cd tomcat/bin # ./startup.sh # ./shutdown.sh Mysql安装# tar -zxvf mysql-version.tar.gz # mv mysql-version /usr/local/mysql # groupadd mysql # useradd -r -g mysql mysql # cd /usr/local/mysql # bin/mysqld --initialize # [Note] A temporary password is generated for root@localhost: **mjT,#x_5sW 记住最后的密码 # vim /etc/my.cnf 添加以下 [mysqld] character_set_server=utf8 init_connect=&apos;SET NAMES utf8&apos; [client] default-character-set=utf8 配置mysql服务开机自动启动 # cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld # chkconfig --add mysqld # 添加mysqld # chkconfig mysqld on # 用这个命令设置开机启动 mysql服务的启动/重启/停止 # service mysqld start # 启动服务 # service mysqld restart # 重启服务 # service mysqld stop # 停止服务 初始化mysql用户root的密码 # mysql -u root -p &apos;**mjT,#x_5sW&apos; # mysql&gt; alter user &apos;root&apos;@&apos;localhost&apos; identified by &apos;root&apos;; # mysql&gt; use mysql # mysql&gt; update user set authentication_string = PASSWORD(&apos;123456&apos;) where user = &apos;root&apos;; mysql软连接 添加 ln -s /usr/local/mysql mysql 删除 rm mysql Zookeeper安装1：把zookeeper的压缩包上传到linux系统。2：解压缩压缩包 tar -zxvf zookeeper-3.4.6.tar.gz 3：进入zookeeper-3.4.6目录，创建data文件夹。 4：把zoo_sample.cfg改名为zoo.cfg [root@localhost conf]# mv zoo_sample.cfg zoo.cfg 5：修改data属性： # vim zoo.cfg dataDir=/root/zookeeper-3.4.6/data 6：启动zookeeper [root@localhost bin]# ./zkServer.sh start 关闭zookeeper： [root@localhost bin]# ./zkServer.sh stop 查看zookeeper状态： [root@localhost bin]# ./zkServer.sh status Redis安装# cd redis # yum install gcc # make MALLOC=libc # make install 1、修改redis.conf文件 # 修改daemonize为yes，即默认以后台程序方式运行（还记得前面手动使用&amp;号强制后台运行吗）。 daemonize no 启动服务 # src/redis-server redis.conf 关闭服务 # src/redis-cli shutdown]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[xiaozhao_001]]></title>
+      <url>%2F2016%2F12%2F24%2Fxiaozhao-001%2F</url>
+      <content type="text"><![CDATA[链接：https://www.nowcoder.com/practice/62cdf520b9d94616b6644ac03a0306ff?tpId=49&amp;tqId=29309&amp;tPage=3&amp;rp=3&amp;ru=/ta/2016test&amp;qru=/ta/2016test/question-ranking 来源：牛客网 题目描述一条长l的笔直的街道上有n个路灯，若这条街的起点为0，终点为l，第i个路灯坐标为ai，每盏灯可以覆盖到的最远距离为d，为了照明需求，所有灯的灯光必须覆盖整条街，但是为了省电，要是这个d最小，请找到这个最小的d。 输入描述:每组数据第一行两个整数n和l（n大于0小于等于1000，l小于等于1000000000大于0）。 第二行有n个整数(均大于等于0小于等于l)，为每盏灯的坐标，多个路灯可以在同一点。 输出描述:输出答案，保留两位小数。 输入例子:7 15 15 5 3 7 9 14 0 输出例子:2.50 解题思路改题可转化为 求乱序数组排序后的元素之间最大距离 改题最简单的做法就是 15 5 3 7 9 14 0 排序 0 3 5 7 9 14 15 最大距离为 9 -&gt; 14 为 5 所以 d = 5 / 2 = 2.50 源代码import java.util.Scanner; import java.math.BigDecimal; public class Main{ public static void main(String[] args){ Scanner in = new Scanner(System.in); while(in.hasNext()){ int n = in.nextInt(); long l = in.nextLong(); long[] array = new long[n]; for(int i=0;i&lt;n;i++){ array[i] = in.nextLong(); } // 冒泡排序 for (int i=0;i&lt;n;i++){ for(int j=0;j&lt;n-i-1;j++){ if(array[j]&gt;array[j+1]){ long temp=array[j]; array[j]=array[j+1]; array[j+1]=temp; } } } // 找出数组相邻元素的最大距离 long maxLength = 0; for(int i=1;i&lt;n;i++){ if(array[i]-array[i-1] &gt; maxLength){ maxLength = array[i]-array[i-1]; } } // 边界处理 maxLength = ((array[0]-0)*2 &gt; maxLength)?(array[0]-0)*2:maxLength; maxLength = ((l-array[n-1])*2 &gt; maxLength)?(l-array[n-1])*2:maxLength; double reusult=(double)maxLength/2; BigDecimal bigDecimal=new BigDecimal(reusult); System.out.println(bigDecimal.setScale(2)); } } }]]></content>
     </entry>
 
     
