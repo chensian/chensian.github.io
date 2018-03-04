@@ -3,6 +3,48 @@
   
     
     <entry>
+      <title><![CDATA[Hexo manual]]></title>
+      <url>%2F2018%2F03%2F04%2FHexo-manual%2F</url>
+      <content type="text"><![CDATA[Node和Git都安装好后，可执行如下命令安装hexo： $ sudo npm install -g hexo 写博客、发布文章 新建一篇博客，执行下面的命令： hexo new post &quot;article title&quot; 用MarDown编辑器打开就可以编辑文章了。文章编辑好之后，运行生成、部署命令,生成静态页面： hexo g // 生成 hexo d // 部署 当然你也可以执行下面的命令，相当于上面两条命令的效果 hexo d -g #在部署前先生成 本地启动 启动本地服务，进行文章预览调试，命令： hexo server 浏览器输入http://localhost:4000]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[JDBC 与 ODBC 的区别]]></title>
+      <url>%2F2017%2F03%2F01%2Fjdbc-odbc-distinction%2F</url>
+      <content type="text"><![CDATA[ODBC(Open DataBase Connectivity :开放数据库连接)是一组对数据库访问的标准API，这些API通过SQL来完成大部分任务，而且它本身也支持SQL语言，支持用户发来的SQL。ODBC定义了访问数据库API的一组规范，这些API独立于形色各异的DBMS和编程语言。 JDBC(Java DataBase Connectivity :Java数据库连接)是Java与数据库的接口规范，JDBC定义了一个支持标准SQL功能的通用低层API，它由Java 语言编写的类和接口组成，旨在让各数据库开发商为Java程序员提供标准的数据库API。 JDBC API定义了若干Java中的类，表示数据库连接、SQL指令、结果集、数据库元数据等。它允许Java程序员发送SQL指令并处理结果。 JDBC与ODBC都是基于X/Open的SQL调用级接口； 从结构上来讲，JDBC的总体结构类似于ODBC,都有四个组件：应用程序、驱动程序管理器、驱动程序和数据源,工作原 理亦大体相同； 在内容交互方面，JDBC保持了ODBC的基本特性,也独立于特定数据库. 而且都不是直接与数据库交互，而是通过驱动程序管理器。 ODBC 不适合直接在 Java 中使用，因为它使用 C 语言接口。从Java 调用本地 C代码在安全性、实现、坚固性和程序的自动移植性方面都有许多缺点。 JDBC 在很大程度上是借鉴了ODBC的，从他的基础上发展而来。JDBC 保留了 ODBC 的基本设计特征，JDBC 以 Java 风格与优点为基础并进行优化，因此更加易于使用。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[TensorFlow-learn]]></title>
+      <url>%2F2017%2F02%2F28%2FTensoFlow-learn%2F</url>
+      <content type="text"><![CDATA[参考TensorFlow官网：http://www.tensorfly.cn/ 使用 TensorFlow, 你必须明白 TensorFlow: 使用图 (graph) 来表示计算任务.在被称之为 会话 (Session) 的上下文 (context) 中执行图.使用 tensor 表示数据.通过 变量 (Variable) 维护状态.使用 feed 和 fetch 可以为任意的操作(arbitrary operation) 赋值或者从其中获取数据.]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[django-learn]]></title>
+      <url>%2F2017%2F02%2F27%2Fdjango-learn%2F</url>
+      <content type="text"><![CDATA[http://wiki.python.org/moin/WebFrameworks 常见的Python web 框架Full-Stack FrameWorks Django web2py TurboGears pythlons tornado flask bottle 环境： pythonDjangomysqlpymysql sublime Text 3pycharm pip freeze python -m pip install --upgrade pip pip install virtulenv 创建虚拟环境 virtulenv base base\Script\activate pip install Django django-admin.py 命令 startprojectstartapprunserver 运行shelldbshellcheck 检查项目完整性flush 清空数据库compilemessages 编译语言文件makemessages 创建语言文件makemigrations 生成同步数据库脚步命令migrate 同步数据库 manage.py 是对 django-admin.py 命令 包装 createsuperuserchangepassword 127.0.0.1:8000/admin 目录结构 manage.py工程目录 urls.py setting.py wsgi.py mongodb b-json collection document column field index ‘mongoengine’ mongodb_DATABASE = { “default” : { “name”:”test”, “host”:’127.0.0.1’, “tz_aware”:True, }}dummy]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[linux-crontab]]></title>
+      <url>%2F2017%2F02%2F27%2Flinux-crontab%2F</url>
+      <content type="text"><![CDATA[第1列分钟1～59第2列小时1～23（0表示子夜）第3列日1～31第4列月1～12第5列星期0～6（0表示星期天）第6列要运行的命令 下面是crontab的格式：分 时 日 月 星期 要运行的命令 这里有crontab文件条目的一些例子： 30 21 * /usr/local/apache/bin/apachectl restart上面的例子表示每晚的21:30重启apache。 45 4 1,10,22 /usr/local/apache/bin/apachectl restart上面的例子表示每月1、10、22日的4 : 45重启apache。 10 1 6,0 /usr/local/apache/bin/apachectl restart上面的例子表示每周六、周日的1 : 10重启apache。 0,30 18-23 * /usr/local/apache/bin/apachectl restart上面的例子表示在每天18 : 00至23 : 00之间每隔30分钟重启apache。 0 23 6 /usr/local/apache/bin/apachectl restart上面的例子表示每星期六的11 : 00 pm重启apache。 0 /1 /usr/local/apache/bin/apachectl restart每一小时重启apache /1和表示的同样的意思，对于 / 的用法，可以参考另一篇文章 Crontab中的除号到底怎么用？http://www.cnblogs.com/cocowool/p/5865397.html 0 23-7/1 * /usr/local/apache/bin/apachectl restart晚上11点到早上7点之间，每隔一小时重启apache 0 11 4 * mon-wed /usr/local/apache/bin/apachectl restart每月的4号与每周一到周三的11点重启apache 0 4 1 jan * /usr/local/apache/bin/apachectl restart一月一号的4点重启apache 参考于：http://www.cnblogs.com/cocowool/archive/2009/04/22/1441291.html]]></content>
+    </entry>
+
+    
+    <entry>
+      <title></title>
+      <url>%2F2017%2F02%2F25%2FAlgorithm-review%2F</url>
+      <content type="text"><![CDATA[算法： 分析框架：输入的规模的度量运行时间的度量单位 基本操作 算法最内层循环最费时的操作大多数的排序算法的基本操作是对键值的比较 增长次数]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[linux 命令 赋权 chmod]]></title>
       <url>%2F2017%2F01%2F24%2Flinux-command%2F</url>
       <content type="text"><![CDATA[转载请注明出处，谢谢！（原文链接：https://chensian.github.io/2017/01/24/linux-command/ ） 字母操作符修改法linux文件或目录的权限分为，读、写、可执行三种权限。文件访问的用户类别分为，文件创建者、与文件创建者同组的用户、其他用户三类。 修改文件的权限或目录的命令为“chmod 755 test.sh”。755表示“创建者拥有读写可执行权限、同一组用户以及其他用户拥有读和执行权限”。 “755”怎么构成的:”0”表示没有权限、“1”表示可执行权限、“2”表示可写权限、“4”表示可读权限。“7=1+2+4，5=1+4”。 使用“chmod 777 test.sh” 令使用能使用linux系统的用户拥有相同的“读写可执行权限”。 # chmod 777 test.sh # ls -l | grep test.sh 字母操作符修改法linux给文件或目录赋权限还有一种容易理解方法。比如：“chmod a-x” 表示所有用户对此文件或目录将没有执行权限。 “a”表示所有用户，“u”表示创建者、“g”表示创建者同组用户、“o”表示其他用户；“+”表示添加权限，“-”表示取消权限；“r”表示读权限、“w”表示写权限、“x”表示写权限。 将系统下/tmp/history目录的权限中增加所属组的写权限。方法：在提示符后输入命令 # chmod g+w /tmp/history 完成后查看发现该目录的权限已由drwxr-xr-x变更为drwxrwxr-x。 # chmod u-x，g-w /tmp/history 完成后查看发现文件的权限已发生变更。这里注意多元素修改需要使用“，”连接。]]></content>
